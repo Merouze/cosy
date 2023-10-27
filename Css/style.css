@@ -1,0 +1,668 @@
+body {
+  margin:50px 50px 0px 50px ;
+  background: #333;
+}
+
+main{
+  background: white;
+  margin: 0;
+}
+.list-none{
+  list-style: none;
+}
+h1 {
+  font-size: 50px;
+  padding-top: 20px;
+}
+h2 {
+  font-size: 30px;
+}
+a {
+  font-size: 20px;
+  color: #000000;
+}
+.m-50 {
+  margin: 50px;
+}
+.m-t50 {
+  margin-top: 50px;
+}
+.m-b50 {
+  margin-bottom: 50px;
+}
+.m-b60 {
+  margin-bottom: 60px;
+}
+.m-t70 {
+  margin-top: 70px;
+}
+.m-b70 {
+  margin-bottom: 70px;
+}
+.m-b100 {
+  margin-bottom: 100px;
+}
+.text-center {
+  text-align: center;
+}
+.p-20 {
+  padding: 20px;
+}
+p {
+  font-size: 20px;
+} 
+.bold{
+  font-weight: bold;
+}
+.prev{
+  padding: 250px 100px;
+  position: relative;
+  bottom: 320px;
+  right: 0px;
+  font-size: 50px;
+
+}
+.next{
+  padding: 250px 100px;
+  position: relative;
+  bottom: 320px;
+  left : 440px;
+  font-size: 50px;
+}
+/* Navbar */
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #BEB09A;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  margin-right: 15px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #BEB09A;
+  padding: 10px;
+  list-style: none;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+  margin: 3px 0;
+}
+/* *******************************************ImgBackground************************* */
+.container-background {
+  width: 80vw;
+  margin: 0 auto;
+  top: 100px;
+  right: 100px;
+}
+.border-radius {
+  border-radius: 15px;
+}
+
+.header {
+  background: url(img.css/étagère-zénithouse.jpg) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 60vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.header-zenithouse {
+  background: url(img.css/salle-zénithouse\ \(1\).webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 60vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+
+.header-gare {
+  background: url(img.css/Terasse-patio.webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 60vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.header-zenith {
+  background: url(img.css/salon.webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 60vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+/* **************************TITRE***************** */
+.zenithouse {
+  color: black;
+  font-size: 60px;
+  padding: 0px;
+}
+.zenith {
+  color: black;
+  font-size: 60px;
+  padding: 0px;
+}
+.gare {
+  color: black;
+  font-size: 60px;
+  padding: 0px;
+}
+.text-brown {
+  color: #BEB09A;
+}
+/* *******************************bloc-logement*************** */
+.bloc-housing {
+  display: flex;
+  
+}
+.bloc-housing {
+  display: flex;
+  justify-content: space-between; /* Ajuste l'espacement entre les éléments */
+  flex-wrap: nowrap; /* Empêche le passage à la ligne en cas de débordement */
+}
+
+.logement-item {
+  flex: 1; /* Permet aux éléments de partager l'espace de manière égale */
+  padding: 10px; /* Ajoute un espacement entre les éléments si nécessaire */
+  text-align: center; /* Centre le contenu dans chaque élément */
+}
+/* ****************review*********************** */
+.customer-review {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.stars {
+  color: #FFD700; /* Couleur des étoiles (jaune) */
+  font-size: 24px;
+}
+.star {
+  display: inline-block;
+  margin-right: 5px;
+}
+.comment {
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 10px 0;
+}
+.name {
+  font-weight: bold;
+}
+.date {
+  color: #777;
+  font-size: 14px;
+}
+/* *****************************************gallerie****************************** */
+
+.container {
+  width: 60vw;
+  margin: 0 auto;
+  top: 100px;
+  right: 100px;
+}
+.gridbox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.photo-item{
+  box-shadow: 18px 20px 6px rgba(0, 0, 0, 0.1);
+}
+.photo-hv:hover {
+  transition: 0.3s,  0.9s;
+  transform: scale(1.08);
+}
+.gridbox img {
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+figcaption {
+  text-align: center;
+}
+/* ****************************************SectionCaenLaMer*************************** */
+.img-section-Caen {
+  background: url(img.css/Entrée-chateau.jpg) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 70vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.container-lien {
+  display: flex;
+}
+/* ********************************form******************** */
+.flex-form {
+  margin-top: 50px;
+  font-size: 20px;
+}
+
+.form {
+  max-width: 60vw;
+  padding: 20px;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  background: #BEB09A;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 50px;
+
+}
+
+.select-date {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-name {
+  display: flex;
+  justify-content: space-around;
+}
+
+h4 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-label {
+  max-width: 360px;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+/* Styles pour les sélections */
+.select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Styles pour les messages d'erreur */
+.error-message {
+  color: red;
+  margin-top: 5px;
+}
+
+.btn {
+  background: #4AA6BD;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.btn:hover {
+  transition: 0.3s,  0.9s;
+  border: 1px solid #333;
+  transform: scale(1.1);
+}
+.height-img:hover {
+  transition: 0.3s,  0.9s;
+  transform: scale(1.1);
+}
+
+
+.form-text {
+  font-size: 14px;
+  color: #777;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.validation-form {
+  color: #4CAF50;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Style pour les zones de texte */
+.message {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  height: 100px;
+}
+/* *****************map********************** */
+.container-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* ********************footer************************ */
+.footer {
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.top-footer {
+  background-color: #4AA6BD;
+}
+
+.top-footer p {
+  margin: 0;
+  padding: 25px;
+}
+
+.center-footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #BEB09A;
+}
+
+.bottom-footer {
+  background-color: #333333;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Style pour les liens de mention légale et politique de confidentialité */
+.bottom-footer a {
+  text-decoration: none;
+  /* Supprime le soulignement des liens */
+  color: white;
+  /* Couleur de lien foncée */
+}
+/* ********************************blocflex****************************** */
+.bloc-display-flex{
+display: flex;
+}
+.justify-center{
+  justify-content: center;
+}
+.display-text{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.display-justify-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.height-img{
+  width: 500px;
+}
+
+/* **************mediaquery**************** */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .navbar-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .header {
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    background-attachment: fixed;
+    height: 45vh;
+  }
+/* ********************section logement**************************** */
+.bloc-display-flex {
+  display: flex;
+  flex-direction: column;
+}
+.height-img{
+  width: 100%;
+}
+.mySlides img {
+  max-width: 60vw;
+}
+.map {
+  max-width: 70vw;
+}
+.container-background {
+  width: 60vw;
+  margin: 0 auto;
+}
+.bloc-display-flex {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.list-none {
+  list-style: none;
+  padding: 0;
+}
+.header-zenithouse {
+  background: url(img.css/salle-zénithouse\ \(1\).webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 40vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.header-gare {
+  background: url(img.css/Terasse-patio.webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 40vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.header-zenith {
+  background: url(img.css/salon.webp) no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: auto;
+  height: 40vh;
+  background-attachment: fixed;
+  border-radius: 15px;
+}
+.zenithouse {
+  color: black;
+  font-size: 46px;
+}
+.zenith {
+  color: black;
+  font-size: 46px;
+}
+.gare {
+  color: black;
+  font-size: 46px;
+}
+.prev{
+ display: none;
+}
+.next{
+ display: none;
+}
+
+  /* ********************************************imgCaen****************************** */
+
+  .gridbox {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+  }
+
+  .top-footer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .center-footer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .bottom-footer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  .gridbox img {
+    width: 100%;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .img-section-Caen {
+    background: url(img.css/Entrée-chateau.jpg) no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: auto;
+    height: 30vh;
+    background-attachment: fixed;
+    border-radius: 15px;
+  }
+
+  .container-lien {
+    display: block;
+  }
+  .photo-item{
+    margin: 0;
+  }
+
+}
+
+@media (max-width: 1080px) {
+
+  /* *********************************************form**************** */
+  .select-date {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border: 1px solid #333333;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+  }
+.form-com{
+  flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid #333333;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+
+}
+  .form-name {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid #333333;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+
+  }
+  .form {
+    max-width: 100%;
+    display: contents;
+  
+  }
+  h4 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .form-label{
+    max-width: 100%;
+  }
+  .flex-form{
+    background: #BEB09A;
+  }
+}
