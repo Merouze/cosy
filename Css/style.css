@@ -492,6 +492,10 @@ display: flex;
     height: 45vh;
   }
 /* ********************section logement**************************** */
+.column-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
 .bloc-display-flex {
   display: flex;
   flex-direction: column;
@@ -509,10 +513,7 @@ display: flex;
   width: 60vw;
   margin: 0 auto;
 }
-.bloc-display-flex {
-  display: flex;
-  flex-direction: column-reverse;
-}
+
 .list-none {
   list-style: none;
   padding: 0;
@@ -666,12 +667,17 @@ display: flex;
     background: #BEB09A;
     margin-bottom: 50px;
   }
-  .menu-toggle{
-    position: sticky;
-  }
+ 
   #navbar {
     display: flex;
     background-color: #BEB09A;
     padding: 10px 20px;
+}
+.p-l5 {
+  padding-left: 5px;
+}
+.btn {
+  display: flex;
+    justify-content: center;
 }
 }
