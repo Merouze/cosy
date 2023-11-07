@@ -1,15 +1,20 @@
 
 // ************Navbar**************************
 
-// Sélectionnez le menu de navigation et le bouton de bascule du menu
-const mobileMenu = document.getElementById('mobile-menu');
-const menuToggle = document.querySelector('.menu-toggle');
 
-// Ajoutez un gestionnaire d'événement pour le clic sur le bouton de bascule
+// Sélectionnez le menu burger et le menu mobile
+const menuToggle = document.querySelector('.menu-toggle');
+const mobileMenu = document.querySelector('#mobile-menu');
+
+// Ajoutez un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
 menuToggle.addEventListener('click', () => {
-    // Basculez la classe 'active' sur le menu de navigation
-    mobileMenu.classList.toggle('active');
+  if (mobileMenu.style.display === 'block') {
+    mobileMenu.style.display = 'none'; // Cache le menu mobile
+  } else {
+    mobileMenu.style.display = 'block'; // Affiche le menu mobile
+  }
 });
+
 
 
 // *****************************FormLocalStotrage*********************

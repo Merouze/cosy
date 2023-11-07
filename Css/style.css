@@ -664,5 +664,14 @@ display: flex;
   }
   .flex-form{
     background: #BEB09A;
+    margin-bottom: 50px;
   }
+  .menu-toggle{
+    position: sticky;
+  }
+  #navbar {
+    display: flex;
+    background-color: #BEB09A;
+    padding: 10px 20px;
+}
 }
