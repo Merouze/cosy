@@ -58,7 +58,7 @@ p {
   padding: 250px 100px;
   position: relative;
   bottom: 320px;
-  right: 0px;
+  right: 200px;
   font-size: 50px;
 
 }
@@ -66,7 +66,7 @@ p {
   padding: 250px 100px;
   position: relative;
   bottom: 320px;
-  left : 440px;
+  left : 640px;
   font-size: 50px;
 }
 /* Navbar */
@@ -100,6 +100,14 @@ p {
 .nav-link {
   color: #fff;
   text-decoration: none;
+}
+.li-dropdown {
+  border: 1px solid white;
+  padding: 10px;
+}
+.li-a {
+  text-decoration: none;
+  color: white;
 }
 
 .dropdown-menu {
@@ -147,7 +155,7 @@ p {
   border-radius: 15px;
 }
 .header-zenithouse {
-  background: url(img.css/salle-zénithouse\ \(1\).webp) no-repeat;
+  background: url(img.css/salle-zénithouse.webp) no-repeat;
   background-size: contain;
   background-position: center;
   width: auto;
@@ -239,12 +247,20 @@ p {
   font-size: 14px;
 }
 /* *****************************************gallerie****************************** */
-
+.container-caen {
+  width: 60vw;
+  margin: 0 auto;
+  top: 100px;
+  right: 100px;
+}
 .container {
   width: 60vw;
   margin: 0 auto;
   top: 100px;
   right: 100px;
+  display: flex;
+  align-items: center;
+  
 }
 .gridbox {
   display: flex;
@@ -519,7 +535,7 @@ display: flex;
   padding: 0;
 }
 .header-zenithouse {
-  background: url(img.css/salle-zénithouse\ \(1\).webp) no-repeat;
+  background: url(img.css/salle-zénithouse.webp) no-repeat;
   background-size: contain;
   background-position: center;
   width: auto;
