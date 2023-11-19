@@ -19,42 +19,42 @@ menuToggle.addEventListener('click', () => {
 
 // *****************************FormLocalStotrage*********************
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".form");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const form = document.querySelector(".form");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Empêche l'envoi par défaut du formulaire
+//   form.addEventListener("submit", function (e) {
+//     e.preventDefault(); // Empêche l'envoi par défaut du formulaire
 
-    // Récupérer les valeurs des champs en utilisant les IDs
-    const name = document.querySelector("#inputName").value;
-    const email = document.querySelector("#inputEmail").value;
-    const phoneNumber = document.querySelector("#inputNumber").value;
-    const message = document.querySelector("#commentaire").value;
-    const dateIn = document.querySelector("#dateIn").value;
-    const dateOut = document.querySelector("#dateOut").value;
-    const numberNight = document.querySelector("#inputNumberNight").value;
-    const checkData = document.querySelector("#check").checked;
-    const housingChoice = document.querySelector("#input-choice").value;
-    // Créer un objet contenant les données
-    const formData = {
-      dateIn,
-      dateOut,
-      numberNight,
-      name,
-      email,
-      phoneNumber,
-      message,
-      checkData,
-      housingChoice,
-    };
-    // Stocker les données dans le Local Storage
-    localStorage.setItem("formData", JSON.stringify(formData));
-    // Afficher un message de confirmation dans la console
-    console.log("Données stockées dans le Local Storage");
-    // Réinitialiser le formulaire après stockage des données
-    form.reset();
-  });
-});
+//     // Récupérer les valeurs des champs en utilisant les IDs
+//     const name = document.querySelector("#inputName").value;
+//     const email = document.querySelector("#inputEmail").value;
+//     const phoneNumber = document.querySelector("#inputNumber").value;
+//     const message = document.querySelector("#commentaire").value;
+//     const dateIn = document.querySelector("#dateIn").value;
+//     const dateOut = document.querySelector("#dateOut").value;
+//     const numberNight = document.querySelector("#inputNumberNight").value;
+//     const checkData = document.querySelector("#check").checked;
+//     const housingChoice = document.querySelector("#input-choice").value;
+//     // Créer un objet contenant les données
+//     const formData = {
+//       dateIn,
+//       dateOut,
+//       numberNight,
+//       name,
+//       email,
+//       phoneNumber,
+//       message,
+//       checkData,
+//       housingChoice,
+//     };
+//     // Stocker les données dans le Local Storage
+//     localStorage.setItem("formData", JSON.stringify(formData));
+//     // Afficher un message de confirmation dans la console
+//     console.log("Données stockées dans le Local Storage");
+//     // Réinitialiser le formulaire après stockage des données
+//     form.reset();
+//   });
+// });
 
 // *************************Input Navigateur date**************************
 
@@ -117,93 +117,93 @@ dateOut.addEventListener('change', function () {
 
 // ************************************* Json for valid date *****************************
 
-// Fonction pour charger le fichier JSON des dates invalides
-async function loadInvalidDates(fileName) {
-  try {
-    // Charge le fichier JSON correspondant et attend la réponse
-    const response = await fetch(fileName);
-    // Analyse la réponse en JSON et récupère les dates invalides
-    const data = await response.json();
-    return data.dates;
-  } catch (error) {
-    console.error('Erreur de chargement du fichier JSON :', error);
-    return [];
-  }
-}
+// // Fonction pour charger le fichier JSON des dates invalides
+// async function loadInvalidDates(fileName) {
+//   try {
+//     // Charge le fichier JSON correspondant et attend la réponse
+//     const response = await fetch(fileName);
+//     // Analyse la réponse en JSON et récupère les dates invalides
+//     const data = await response.json();
+//     return data.dates;
+//   } catch (error) {
+//     console.error('Erreur de chargement du fichier JSON :', error);
+//     return [];
+//   }
+// }
 
-// Fonction pour vérifier si les dates sont invalides
-function isDateInvalid(selectedStartDate, selectedEndDate, invalidDates) {
-  let isInvalid = false;
-  const startDate = new Date(selectedStartDate);
-  const endDate = new Date(selectedEndDate);
+// // Fonction pour vérifier si les dates sont invalides
+// function isDateInvalid(selectedStartDate, selectedEndDate, invalidDates) {
+//   let isInvalid = false;
+//   const startDate = new Date(selectedStartDate);
+//   const endDate = new Date(selectedEndDate);
 
-  let currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    const formattedDate = currentDate.toISOString().split('T')[0];
-    if (invalidDates.includes(formattedDate)) {
-      isInvalid = true;
-      break;
-    }
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
+//   let currentDate = new Date(startDate);
+//   while (currentDate <= endDate) {
+//     const formattedDate = currentDate.toISOString().split('T')[0];
+//     if (invalidDates.includes(formattedDate)) {
+//       isInvalid = true;
+//       break;
+//     }
+//     currentDate.setDate(currentDate.getDate() + 1);
+//   }
 
-  return isInvalid;
-}
+//   return isInvalid;
+// }
 
-// Fonction pour mettre à jour le message d'erreur
-function updateErrorMessage(isInvalid) {
-  const errorMessage = document.getElementById('dateInNoDispo');
-  if (isInvalid) {
-    errorMessage.textContent = 'Le logement n\'est pas disponible pour cette période.';
-  } else {
-    errorMessage.textContent = '';
-  }
-}
+// // Fonction pour mettre à jour le message d'erreur
+// function updateErrorMessage(isInvalid) {
+//   const errorMessage = document.getElementById('dateInNoDispo');
+//   if (isInvalid) {
+//     errorMessage.textContent = 'Le logement n\'est pas disponible pour cette période.';
+//   } else {
+//     errorMessage.textContent = '';
+//   }
+// }
 
-// Écouteurs d'événements pour les champs de date et de choix du logement
-const dateInField = document.getElementById('dateIn');
-const dateOutField = document.getElementById('dateOut');
-const choiceField = document.getElementById('input-choice');
+// // Écouteurs d'événements pour les champs de date et de choix du logement
+// const dateInField = document.getElementById('dateIn');
+// const dateOutField = document.getElementById('dateOut');
+// const choiceField = document.getElementById('input-choice');
 
-async function handleDateChange() {
-  const selectedDateIn = dateInField.value;
-  const selectedDateOut = dateOutField.value;
-  const selectedChoice = choiceField.value;
+// async function handleDateChange() {
+//   const selectedDateIn = dateInField.value;
+//   const selectedDateOut = dateOutField.value;
+//   const selectedChoice = choiceField.value;
 
-  // Définissez ici le nom du fichier JSON correspondant au logement
-  let jsonFileName = '';
+//   // Définissez ici le nom du fichier JSON correspondant au logement
+//   let jsonFileName = '';
 
-  switch (selectedChoice) {
-    case 'Cosy Patio':
-      jsonFileName = 'dates_invalides_CosyPatio.json';
-      break;
-    case 'Cosy Zénith':
-      jsonFileName = 'dates_invalides_CosyZénith.json';
-      break;
-    case 'Zénit\'House':
-      jsonFileName = "dates_invalides_Zénit'House.json";
-      break;
-    default:
-      jsonFileName = ''; // Le choix par défaut ou une option non reconnue
-  }
+//   switch (selectedChoice) {
+//     case 'Cosy Patio':
+//       jsonFileName = 'dates_invalides_CosyPatio.json';
+//       break;
+//     case 'Cosy Zénith':
+//       jsonFileName = 'dates_invalides_CosyZénith.json';
+//       break;
+//     case 'Zénit\'House':
+//       jsonFileName = "dates_invalides_Zénit'House.json";
+//       break;
+//     default:
+//       jsonFileName = ''; // Le choix par défaut ou une option non reconnue
+//   }
 
-  if (jsonFileName) {
-    // Charge les dates invalides depuis le fichier JSON approprié
-    const invalidDates = await loadInvalidDates(jsonFileName);
-    // Vérifie si les dates sont invalides
-    const isInvalid = isDateInvalid(selectedDateIn, selectedDateOut, invalidDates);
-    // Met à jour le message d'erreur en fonction du résultat
-    updateErrorMessage(isInvalid);
-  } else {
-    // Réinitialise le message d'erreur si l'option change
-    updateErrorMessage(false);
-  }
-}
+//   if (jsonFileName) {
+//     // Charge les dates invalides depuis le fichier JSON approprié
+//     const invalidDates = await loadInvalidDates(jsonFileName);
+//     // Vérifie si les dates sont invalides
+//     const isInvalid = isDateInvalid(selectedDateIn, selectedDateOut, invalidDates);
+//     // Met à jour le message d'erreur en fonction du résultat
+//     updateErrorMessage(isInvalid);
+//   } else {
+//     // Réinitialise le message d'erreur si l'option change
+//     updateErrorMessage(false);
+//   }
+// }
 
-// Ajoute des écouteurs d'événements pour les champs de date et de choix du logement
-dateInField.addEventListener('change', handleDateChange);
-dateOutField.addEventListener('change', handleDateChange);
-choiceField.addEventListener('change', handleDateChange);
+// // Ajoute des écouteurs d'événements pour les champs de date et de choix du logement
+// dateInField.addEventListener('change', handleDateChange);
+// dateOutField.addEventListener('change', handleDateChange);
+// choiceField.addEventListener('change', handleDateChange);
 
 // *********************************calendar **************************************
 

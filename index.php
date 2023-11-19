@@ -1,3 +1,12 @@
+<?php
+require "../php2/vendor/autoload.php";
+include "includes/_db.php";
+
+session_start();
+$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,7 +25,7 @@
 
             <!-- ********************** Navbar with burger menu ********************** -->
             <nav id="navbar">
-                <a class="navbar-brand" href="index.html">Les Logements Cosy</a>
+                <a class="navbar-brand" href="index.php">Les Logements Cosy</a>
                 <ul id="mobile-menu" class="navbar-nav">
 
                     <li class="nav-item">
@@ -55,6 +64,8 @@
         <h1 class="text-center">
             <div class="slide-right">Les Logements Cosy</div>
         </h1>
+        <?php
+?>
         <div>
             <h2 class="text-center first-h2">Vacances, Hébergements et Locations saisonnières</h2>
         </div>
@@ -254,6 +265,7 @@
                                 aria-describedby="emailHelp"></label>
                         <div id="emailHelp" class="form-text">Votre e-mail ne sera pas diffusé.</div>
                     </div>
+                    <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
                 </div>
             </div>
             <div class="form">
