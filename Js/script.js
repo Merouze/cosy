@@ -2,18 +2,52 @@
 // ************Navbar**************************
 
 
-// Sélectionnez le menu burger et le menu mobile
+
+// // Sélectionnez le menu burger et le menu mobile
+// const menuToggle = document.querySelector('.menu-toggle');
+// const mobileMenu = document.querySelector('#mobile-menu');
+
+// // Ajoutez un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
+// menuToggle.addEventListener('click', () => {
+//   if (mobileMenu.style.display === 'block') {
+//     mobileMenu.style.display = 'none'; // Cache le menu mobile
+//   } else {
+//     mobileMenu.style.display = 'block'; // Affiche le menu mobile
+//   }
+// });
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('#mobile-menu');
+const navbar = document.getElementById('navbar');
 
-// Ajoutez un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
+let prevScrollPos = window.pageYOffset;
+
+// Ajoute un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
 menuToggle.addEventListener('click', () => {
+  toggleMobileMenu();
+});
+
+// Gestion de la visibilité de la navbar lors du défilement
+window.addEventListener('scroll', () => {
+  let currentScrollPos = window.pageYOffset;
+
+  if (prevScrollPos > currentScrollPos) {
+    // L'utilisateur fait défiler vers le haut
+    navbar.style.top = '0';
+  } else {
+    // L'utilisateur fait défiler vers le bas
+    navbar.style.top = `-${navbar.offsetHeight}px`;
+  }
+
+  prevScrollPos = currentScrollPos;
+});
+
+function toggleMobileMenu() {
   if (mobileMenu.style.display === 'block') {
     mobileMenu.style.display = 'none'; // Cache le menu mobile
   } else {
     mobileMenu.style.display = 'block'; // Affiche le menu mobile
   }
-});
+}
 
 
 
@@ -298,30 +332,30 @@ dateOut.addEventListener('change', function () {
 // ***********************************************************************Validation formulaire
 
 
-// Sélectionnez tous les éléments avec la classe "form" et "validation-form"
-const forms = document.querySelectorAll('.form');
-const validationDivs = document.querySelectorAll('.validation-form');
+// // Sélectionnez tous les éléments avec la classe "form" et "validation-form"
+// const forms = document.querySelectorAll('.form');
+// const validationDivs = document.querySelectorAll('.validation-form');
 
-// Parcourez tous les formulaires
-forms.forEach(function (form, index) {
-  // Écoutez l'événement "submit" de chaque formulaire
-  form.addEventListener('submit', function (e) {
-    // Empêchez le comportement par défaut du formulaire (rechargement de la page)
-    e.preventDefault();
+// // Parcourez tous les formulaires
+// forms.forEach(function (form, index) {
+//   // Écoutez l'événement "submit" de chaque formulaire
+//   form.addEventListener('submit', function (e) {
+//     // Empêchez le comportement par défaut du formulaire (rechargement de la page)
+//     e.preventDefault();
 
-    // Affichez le message de confirmation dans la div de validation correspondante
-    const validationDiv = validationDivs[index];
-    const confirmationMessage = document.createElement('div');
-    confirmationMessage.classList.add('alert', 'alert-success');
-    confirmationMessage.textContent = 'Votre formulaire a été envoyé avec succès. Vous recevrez un e-mail de confirmation.';
+//     // Affichez le message de confirmation dans la div de validation correspondante
+//     const validationDiv = validationDivs[index];
+//     const confirmationMessage = document.createElement('div');
+//     confirmationMessage.classList.add('alert', 'alert-success');
+//     confirmationMessage.textContent = 'Votre formulaire a été envoyé avec succès. Vous recevrez un e-mail de confirmation.';
 
-    // Effacez le contenu précédent de la div de validation
-    validationDiv.innerHTML = '';
+//     // Effacez le contenu précédent de la div de validation
+//     validationDiv.innerHTML = '';
 
-    // Ajoutez le message à la div de validation
-    validationDiv.appendChild(confirmationMessage);
-  });
-});
+//     // Ajoutez le message à la div de validation
+//     validationDiv.appendChild(confirmationMessage);
+//   });
+// });
 
 
 // ****************************slider*********
@@ -330,26 +364,35 @@ let slideIndex = 0;
 showSlides();
 
 function plusSlides(n) {
-    showSlides(slideIndex += n);
+  showSlides(slideIndex += n);
 }
 
 function showSlides() {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
 
-    if (slideIndex >= slides.length) {
-        slideIndex = 0;
-    }
+  if (slideIndex >= slides.length) {
+    slideIndex = 0;
+  }
 
-    if (slideIndex < 0) {
-        slideIndex = slides.length - 1;
-    }
-
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-
+  if (slideIndex < 0) {
+    slideIndex = slides.length - 1;
+  }
+  if (slides[slideIndex]) {
+    // Vérifier si slides[slideIndex] est défini avant d'accéder à sa propriété 'style'.
     slides[slideIndex].style.display = "block";
+  }
 
-    setTimeout(showSlides, 2000); // Change image every 2 seconds
-}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  slides[slideIndex].style.display = "block";
+
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+};
+
+// document.getElementById("form").addEventListener("click", function(event) {
+
+//   console.log("Le bouton a été cliqué !");
+// });

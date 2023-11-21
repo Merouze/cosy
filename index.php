@@ -1,7 +1,6 @@
 <?php
-require "../php2/vendor/autoload.php";
-include "includes/_db.php";
-
+require "../Les_Logements_Cosy/vendor/autoload.php";
+include ".includes/_db.php";
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
@@ -22,7 +21,6 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 <body>
     <main>
     <header>
-
             <!-- ********************** Navbar with burger menu ********************** -->
             <nav id="navbar">
                 <a class="navbar-brand" href="index.php">Les Logements Cosy</a>
@@ -34,7 +32,7 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                         <ul class="dropdown-menu">
                             <li class="li-dropdown"><a href="#"><img src="icon/icons8-france-48 (2) (1).png" alt="drapeaux français"></a>
                             </li>
-                            <li class="li-dropdown"><a href="#"><img src="icon/icons8-united-kingdom-48 (1) (1).png"
+                            <li class="li-dropdown"><a href="en-index.php"><img src="icon/icons8-united-kingdom-48 (1) (1).png"
                                         alt="drapeaux anglais"></a>
                             </li>
                         </ul>
@@ -64,7 +62,9 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
         <h1 class="text-center">
             <div class="slide-right">Les Logements Cosy</div>
         </h1>
+        
         <?php
+        
 ?>
         <div>
             <h2 class="text-center first-h2">Vacances, Hébergements et Locations saisonnières</h2>
@@ -218,7 +218,7 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
             </div>
     </section>
     <!-- ****************** Formulaire ******************** -->
-    <form id="form" class="form m-t50">
+    <form action="action.php" method="post" id="form" class="form m-t50">
         <div class="flex-form">
             <h4 class="text-center">Demande d'informations</h4>
             <div class="form">
@@ -252,26 +252,28 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
             <div class="form">
                 <div class="form-name">
                     <div class="">
-                        <label for="inputName" class="">Nom, Prénom :
-                            <input id="inputName" type="text" class="name form-label"></label>
+                        <label for="nom_prenom" class="">Nom, Prénom :
+                            <input id="nom_prenom" type="text" class="name form-label"></label>
                     </div>
                     <div>
-                        <label for="inputNumber" class="">Numéro de téléphone :
-                            <input id="inputNumber" type="tel" class="phone form-label"></label>
+                        <label for="telephone_client" class="">Numéro de téléphone :
+                            <input id="telephone_client" type="tel" class="phone form-label"></label>
                     </div>
                     <div>
-                        <label for="inputEmail" class="">Adresse email :
-                            <input id="inputEmail" type="email" class="email form-label"
+                        <label for="mail_client" class="">Adresse email :
+                            <input id="mail_client" type="email" class="email form-label"
                                 aria-describedby="emailHelp"></label>
                         <div id="emailHelp" class="form-text">Votre e-mail ne sera pas diffusé.</div>
                     </div>
                     <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                    <!-- <input type="hidden" name="info_client" value="1"> -->
+
                 </div>
             </div>
             <div class="form">
                 <div class="form-com">
-                    <label for="commentaire">Ecrivez nous :</label>
-                    <textarea id="commentaire" class="message" placeholder="Laissez-nous votre message !"
+                    <label for="message_client">Ecrivez nous :</label>
+                    <textarea id="message_client" class="message" placeholder="Laissez-nous votre message !"
                         style="height: 100px"></textarea>
                 </div>
                 <div class="">
@@ -284,11 +286,15 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
             <div class="">
             </div>
             <div class="">
-                <button type="submit" class="btn">Envoyer</button>
+                <button id="submitBtn" type="submit" class="btn">Envoyer</button>
                 <div id="validation-form" class="validation-form"></div>
             </div>
         </div>
-    </form>
+
+     </form>
+     <?php
+var_dump ($_POST);
+?>
 
     <!-- ********************* footer *************************** -->
 

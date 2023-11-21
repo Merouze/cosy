@@ -69,7 +69,8 @@ p {
   left : 640px;
   font-size: 50px;
 }
-/* Navbar */
+/*********************** Navbar *******************/
+
 #navbar {
   display: flex;
   justify-content: space-between;
@@ -208,8 +209,8 @@ p {
 }
 .bloc-housing {
   display: flex;
-  justify-content: space-between; /* Ajuste l'espacement entre les éléments */
-  flex-wrap: nowrap; /* Empêche le passage à la ligne en cas de débordement */
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .logement-item {
@@ -477,7 +478,11 @@ display: flex;
 }
 
 /* **************mediaquery**************** */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
+  body {
+    margin:50px 20px;
+    background: #333;
+  }
   .navbar-brand {
     font-size: 20px;
   }
