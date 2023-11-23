@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 22 nov. 2023 à 14:43
+-- Généré le : jeu. 23 nov. 2023 à 16:05
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -31,23 +31,21 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `id_client` int NOT NULL AUTO_INCREMENT,
   `nom_prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `message_client` varchar(500) DEFAULT NULL,
   `mail_client` varchar(60) DEFAULT NULL,
   `telephone_client` varchar(20) DEFAULT NULL,
   `adresse_client` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_client`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id_client`, `nom_prenom`, `message_client`, `mail_client`, `telephone_client`, `adresse_client`) VALUES
-(1, 'Doe', 'Bonjour', 'john.doe@example.com', '0634567890', '123 Main '),
-(2, 'Smith', 'Bienvenue', 'jane.smith@example.com', '0676543210', '456 Oak '),
-(3, 'Johnson', 'Salut', 'bob.johnson@example.com', '0651234567', '789 Elm '),
-(4, 'AUrelien', 'Message du client', 'mail@example.com', '0123456789', NULL),
-(5, 'Damien', 'Message du client', 'mail@example.com', '0123456789', NULL);
+INSERT INTO `client` (`id_client`, `nom_prenom`, `mail_client`, `telephone_client`, `adresse_client`) VALUES
+(20, 'Jean', 'bateau@gmail.com', '0231265444', '2 route de Caen.\r\n14930 Ifs'),
+(21, 'marie', 'aurelienmerouze@gmail.com', '02', 'dede'),
+(29, 'Jean', 'aurelienmerouze@gmail.com', '0678542103', '2 route de Caen.\r\n14120 Mondeville'),
+(30, 'Aurélien Mérouze', 'aaa@hotmail.com', '0678456521', '2 rue de la a caen 14000');
 
 -- --------------------------------------------------------
 
@@ -127,27 +125,23 @@ INSERT INTO `prix_logement` (`id_prix_logement`, `prix`, `id_logement`, `id_sais
 DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE IF NOT EXISTS `reservation` (
   `id_reservation` int NOT NULL AUTO_INCREMENT,
+  `id_client` int DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL,
+  `nombre_nuit` int DEFAULT NULL,
   `id_logement` int NOT NULL,
   PRIMARY KEY (`id_reservation`),
   KEY `id_logement` (`id_logement`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reservation`
 --
 
-INSERT INTO `reservation` (`id_reservation`, `date_debut`, `date_fin`, `id_logement`) VALUES
-(1, '2023-01-01', '2023-01-10', 1),
-(2, '2023-02-01', '2023-02-10', 1),
-(3, '2023-03-01', '2023-03-10', 1),
-(4, '2023-01-01', '2023-01-10', 2),
-(5, '2023-02-15', '2023-02-10', 2),
-(6, '2023-03-15', '2023-03-10', 2),
-(7, '2023-01-20', '2023-01-10', 3),
-(8, '2023-02-20', '2023-02-10', 3),
-(9, '2023-03-20', '2023-03-10', 3);
+INSERT INTO `reservation` (`id_reservation`, `id_client`, `date_debut`, `date_fin`, `nombre_nuit`, `id_logement`) VALUES
+(20, 21, '2023-11-23', '2023-11-25', 2, 1),
+(28, 29, '2023-11-23', '2023-11-30', 7, 2),
+(29, 30, '2023-11-23', '2023-11-30', 7, 2);
 
 -- --------------------------------------------------------
 
@@ -175,40 +169,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- SELECT 
---         reservation.id_reservation,
---         reservation.date_debut,
---         reservation.date_fin,
---         reservation.nombre_nuit,
---         logement.nom_logement,
---         client.nom_prenom,
---         client.telephone_client,
---         client.mail_client,
---         client.adresse_client
---     FROM 
---         reservation
---     INNER JOIN
---         client ON reservation.id_client = client.id_client
---     INNER JOIN
---         logement ON reservation.id_logement = logement.id_logement
---     ORDER BY
---         reservation.date_debut DESC
-        

@@ -3,6 +3,8 @@ require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
 include_once 'functions.php';
 
+var_dump($_POST);
+session_start();
 
 // // ******************* add resa *************
 
@@ -45,53 +47,69 @@ if (isset($_POST['resa']) && (isset($_POST))) {
         $_SESSION['error'] = 'Impossible d\'ajouter la réservation';
     }
     header('Location: admin.php');
-
 };
 
 // ****************** afficher un historique des reservation ******************
 
-$historiqueQuery = $dtcosycaen->prepare("
-    SELECT 
-        reservation.id_reservation,
-        reservation.date_debut,
-        reservation.date_fin,
-        reservation.nombre_nuit,
-        logement.nom_logement,
-        client.nom_prenom,
-        client.telephone_client,
-        client.mail_client,
-        client.adresse_client
-    FROM 
-        reservation
-    INNER JOIN
-        client ON reservation.id_client = client.id_client
-    INNER JOIN
-        logement ON reservation.id_logement = logement.id_logement
-    ORDER BY
-        reservation.date_debut DESC
-");
 
-// Exécutez la requête
-$historiqueQuery->execute();
+// if (isset($_POST['recherche']) && (isset($_POST))) {
+//     // Construisez la requête en fonction du paramètre de recherche
+//     $recherche = strip_tags($_POST['chercherResa']);
 
-// Récupérez les résultats
-$historiqueReservations = $historiqueQuery->fetchAll(PDO::FETCH_ASSOC);
+//     // Vérifiez si la valeur de recherche est une date valide
+//     $dateDebut = date('Y-m-d', strtotime($recherche));
+//     $dateFin = date('Y-m-d', strtotime($recherche));
+
+//     // Construisez la requête avec les conditions de date
+//     $displayResa = $dtcosycaen->prepare("
+//         SELECT 
+//         reservation.id_reservation,
+//             reservation.date_debut,
+//             reservation.date_fin,
+//             reservation.nombre_nuit,
+//             logement.nom_logement,
+//             client.nom_prenom,
+//             client.telephone_client,
+//             client.mail_client,
+//             client.adresse_client
+//         FROM 
+//         reservation
+//         INNER JOIN
+//             client ON reservation.id_client = client.id_client
+//             INNER JOIN
+//             logement ON reservation.id_logement = logement.id_logement
+//             WHERE
+//             client.nom_prenom LIKE :recherche
+//             OR reservation.date_debut <= :dateDebut
+//             OR reservation.date_fin >= :dateFin
+//             OR logement.nom_logement LIKE :recherche
+//             ORDER BY
+//             reservation.date_debut DESC
+//             ");
+
+//     // Liez le paramètre de recherche
+//     $displayResa->bindParam(':recherche', $recherche, PDO::PARAM_STR);
+
+//     // Liez les paramètres de date
+//     $displayResa->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
+//     $displayResa->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+
+//     // ...
+
+//     // Exécutez la requête
+//     $displayResa->execute();
+
+//     // Récupérez les résultats
+//     $historiqueReservations = $displayResa->fetchAll(PDO::FETCH_ASSOC);
+
+//     // Affichage des résultats de la recherche
+//     if (!empty($historiqueReservations)) {
+//         $_SESSION['notif'] = 'Réservation trouvée(s)';
+//     } else {
+//         $_SESSION['error'] = 'Aucune réservation trouvée';
+//     }
+
+//     header('Location: admin.php');
+//     exit();
+// }
 ?>
-
-<ul>
-    <?php foreach ($historiqueReservations as $reservation): ?>
-        <li>
-            <strong>ID Réservation:</strong> <?= $reservation['id_reservation'] ?><br>
-            <strong>Date de début:</strong> <?= $reservation['date_debut'] ?><br>
-            <strong>Date de fin:</strong> <?= $reservation['date_fin'] ?><br>
-            <strong>Nombre de nuits:</strong> <?= $reservation['nombre_nuit'] ?><br>
-            <strong>Logement:</strong> <?= $reservation['nom_logement'] ?><br>
-            <strong>Client:</strong> <?= $reservation['nom_prenom'] ?><br>
-            <strong>Téléphone:</strong> <?= $reservation['telephone_client'] ?><br>
-            <strong>Email:</strong> <?= $reservation['mail_client'] ?><br>
-            <strong>Adresse:</strong> <?= $reservation['adresse_client'] ?><br>
-        </li>
-    <?php endforeach; ?>
-</ul>
-
-

@@ -118,20 +118,119 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                 <div id="validation-form" class="validation-form"></div>
             </div>
         </form>
-<!-- ********************************************** rechercher une resa ********************* -->
+        <!-- ********************************************** rechercher une resa ********************* -->
 
-        <form id="recherche" class="form m-t50" method="post"action="traitement_reservation.php">
-        <h4 class="text-center">Rechercher une réservation</h4>
+        <form id="recherche" class="form m-t50" method="post" action="traitement_reservation.php">
+            <h4 class="text-center">Rechercher une réservation</h4>
 
             <div class="form m-t50">
-                <div><label for="recherche">Rechercher par :</label>
-            <input class="form-label" type="text" id="recherche" name="recherche" placeholder="Nom, date ou logement.">
-            </div>
-            <button name="recherche" type="submit" class="btn m-t50">Rechercher</button>
-            </div>
+                <div><label for="rechercheResa">Rechercher par :</label>
+                    <input class="form-label" type="text" name="chercherResa" id="rechercheResa" placeholder="Nom, date ou logement.">
+                    <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+                </div>
+                <button name="recherche" type="submit" class="btn m-t50">Rechercher</button>
 
-
+            </div>
         </form>
+
+        <?php
+// ...
+
+$historiqueReservations = [];
+    
+        
+// if (isset($_POST)) {
+//     $recherche = strip_tags($_POST['chercherResa']);
+if (isset($_POST['recherche'])) {
+    if (isset($_POST['chercherResa'])) {
+        $recherche = strip_tags($_POST['chercherResa']);
+        
+
+    // Vérifiez si la valeur de recherche est une date valide
+    $dateDebut = date('Y-m-d', strtotime($recherche));
+    $dateFin = date('Y-m-d', strtotime($recherche));
+
+    // Construisez la requête avec les conditions de date
+    $displayResa = $dtcosycaen->prepare("
+        SELECT 
+        reservation.id_reservation,
+            reservation.date_debut,
+            reservation.date_fin,
+            reservation.nombre_nuit,
+            logement.nom_logement,
+            client.nom_prenom,
+            client.telephone_client,
+            client.mail_client,
+            client.adresse_client
+        FROM 
+        reservation
+        INNER JOIN
+            client ON reservation.id_client = client.id_client
+            INNER JOIN
+            logement ON reservation.id_logement = logement.id_logement
+            WHERE
+            client.nom_prenom LIKE :recherche
+            OR reservation.date_debut <= :dateDebut
+            OR reservation.date_fin >= :dateFin
+            OR logement.nom_logement LIKE :recherche
+            ORDER BY
+            reservation.date_debut DESC
+            ");
+
+    // Liez le paramètre de recherche
+    $displayResa->bindParam(':recherche', $recherche, PDO::PARAM_STR);
+
+    // Liez les paramètres de date
+    $displayResa->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
+    $displayResa->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
+
+    // ...
+
+    // Exécutez la requête
+    $displayResa->execute();
+
+    // Récupérez les résultats
+    $historiqueReservations = $displayResa->fetchAll(PDO::FETCH_ASSOC);
+
+    // Affichage des résultats de la recherche
+    if (!empty($historiqueReservations)) {
+        $_SESSION['notif'] = 'Réservation trouvée(s)';
+    } else {
+        $_SESSION['error'] = 'Aucune réservation trouvée';
+    }
+
+}}
+
+
+// ...
+?>
+
+<!-- Affichage des résultats -->
+<?php
+if (!empty($historiqueReservations)) {
+    echo '<ul>';
+    foreach ($historiqueReservations as $reservation) {
+        echo '<li>';
+        echo '<strong>Client:</strong> ' . $reservation['nom_prenom'] . '<br>';
+        echo '<strong>Téléphone:</strong> ' . $reservation['telephone_client'] . '<br>';
+        echo '<strong>Email:</strong> ' . $reservation['mail_client'] . '<br>';
+        echo '<strong>Adresse:</strong> ' . $reservation['adresse_client'] . '<br>';
+        echo '<strong>Date de début:</strong> ' . date('d/m/Y', strtotime($reservation['date_debut'])) . '<br>';
+        echo '<strong>Date de fin:</strong> ' . date('d/m/Y', strtotime($reservation['date_fin'])) . '<br>';
+        echo '<strong>Nombre de nuits:</strong> ' . $reservation['nombre_nuit'] . '<br>';
+        echo '<strong>Logement:</strong> ' . $reservation['nom_logement'] . '<br>';
+        echo '<a href="edit.php?id=' . $reservation['id_reservation'] . '">Modifier</a>';
+        echo '<a href="edit.php?id=' . $reservation['id_reservation'] . '">Supprimer</a>';
+
+        echo '</li>';
+    }
+    echo '</ul>';
+}
+// var_dump($historiqueReservations);
+?>
+
+
+
 
         <!-- ********************* footer *************************** -->
 
