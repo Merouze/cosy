@@ -3,51 +3,19 @@
 
 
 
-// // Sélectionnez le menu burger et le menu mobile
-// const menuToggle = document.querySelector('.menu-toggle');
-// const mobileMenu = document.querySelector('#mobile-menu');
-
-// // Ajoutez un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
-// menuToggle.addEventListener('click', () => {
-//   if (mobileMenu.style.display === 'block') {
-//     mobileMenu.style.display = 'none'; // Cache le menu mobile
-//   } else {
-//     mobileMenu.style.display = 'block'; // Affiche le menu mobile
-//   }
-// });
+// Sélectionnez le menu burger et le menu mobile
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('#mobile-menu');
-const navbar = document.getElementById('navbar');
 
-let prevScrollPos = window.pageYOffset;
-
-// Ajoute un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
+// Ajoutez un gestionnaire d'événement au menu burger pour basculer la visibilité du menu mobile
 menuToggle.addEventListener('click', () => {
-  toggleMobileMenu();
-});
-
-// Gestion de la visibilité de la navbar lors du défilement
-window.addEventListener('scroll', () => {
-  let currentScrollPos = window.pageYOffset;
-
-  if (prevScrollPos > currentScrollPos) {
-    // L'utilisateur fait défiler vers le haut
-    navbar.style.top = '0';
-  } else {
-    // L'utilisateur fait défiler vers le bas
-    navbar.style.top = `-${navbar.offsetHeight}px`;
-  }
-
-  prevScrollPos = currentScrollPos;
-});
-
-function toggleMobileMenu() {
   if (mobileMenu.style.display === 'block') {
     mobileMenu.style.display = 'none'; // Cache le menu mobile
   } else {
     mobileMenu.style.display = 'block'; // Affiche le menu mobile
   }
-}
+});
+
 
 
 
@@ -242,91 +210,34 @@ dateOut.addEventListener('change', function () {
 // *********************************calendar **************************************
 
 
-// let cases = document.getElementsByClassName('case');
-
-// let date = new Date();
-// let year = date.getFullYear();
-// let month = date.getMonth() + 1;
-// let day = date.getDate();
-
-// const monthName = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-
-// const UP_MONTH = 'upMonth';
-// const DOWN_MONTH = 'downMonth';
-
-// function CALENDRIER_REDUCER(action) {
-//   switch (action) {
-//     case UP_MONTH:
-//       if (month < 12) month++;
-//       else {
-//         year++;
-//         month = 1;
-//       }
-//       break;
-//     case DOWN_MONTH:
-//       if (month > 1) month--;
-//       else {
-//         year--;
-//         month = 12;
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-//   getCalendrier(year, month);
-// }
-
-// document.getElementById('left').onclick = function () {
-//   CALENDRIER_REDUCER(DOWN_MONTH);
-//   console.log(month);
-// };
-
-// document.getElementById('right').onclick = function () {
-//   CALENDRIER_REDUCER(UP_MONTH);
-//   console.log(month);
-// };
-
-// getCalendrier(year, month);
-
-// function getCalendrier(year, month) {
-//   const monthNb = month + 12 * (year - 2020);
-//   let cld = [{ dayStart: 2, length: 31, year: 2020, month: "janvier" }];
-
-//   for (let i = 0; i < monthNb - 1; i++) {
-//     let yearSimule = 2020 + Math.floor(i / 12);
-//     const monthsSimuleLongueur = [31, getFévrierLength(yearSimule), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-//     let monthsSimuleIndex = (i + 1) - (yearSimule - 2020) * 12;
-
-//     cld[i + 1] = {
-//       dayStart: (cld[i].dayStart + monthsSimuleLongueur[monthsSimuleIndex - 1]) % 7,
-//       length: monthsSimuleLongueur[monthsSimuleIndex],
-//       year: 2020 + Math.floor((i + 1) / 12),
-//       month: monthName[monthsSimuleIndex]
-//     }
-//     if (cld[i + 1].month === undefined) {
-//       cld[i + 1].month = "janvier";
-//       cld[i + 1].length = 31;
-//     }
-//   }
-
-//   for (let i = 0; i < cases.length; i++) {
-//     cases[i].innerText = "";
-//     const dayOfMonth = i - cld[cld.length - 1].dayStart + 1;
-//     if (dayOfMonth > 0 && dayOfMonth <= cld[cld.length - 1].length) {
-//       const currentDate = `${year}-${month.toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}`;
-//       cases[i].setAttribute('data-date', currentDate);
-//       cases[i].innerText = dayOfMonth.toString();
-//     }
-//   }
-
-//   document.getElementById('cldT').innerText = monthName[month - 1].toLocaleUpperCase() + " " + year;
-// }
-
-// function getFévrierLength(year) {
-//   if (year % 4 === 0) return 29;
-//   else return 28;
-// }
-
+document.addEventListener('DOMContentLoaded', function() {
+  let calendarEl = document.getElementById('calendar');
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    events: [
+      
+      {
+        title: 'Logement 1',
+        start: '2023-12-01',
+        end: '2023-12-10',
+        color: 'green',
+      },
+      {
+        title: 'Logement 2',
+        start: '2023-12-01',
+        end: '2023-12-10',
+        color: 'blue',
+      },
+      {
+        title: 'Logement 3',
+        start: '2023-12-01',
+        end: '2023-12-10',
+        color: 'red',
+      }
+    ],
+  });
+  calendar.render();
+});
 
 
 // ***********************************************************************Validation formulaire

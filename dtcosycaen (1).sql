@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 16 nov. 2023 à 17:07
+-- Généré le : mer. 22 nov. 2023 à 14:43
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -30,23 +30,24 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `id_client` int NOT NULL AUTO_INCREMENT,
-  `nom_client` varchar(50) DEFAULT NULL,
-  `prenom_client` varchar(50) DEFAULT NULL,
+  `nom_prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `message_client` varchar(500) DEFAULT NULL,
   `mail_client` varchar(60) DEFAULT NULL,
   `telephone_client` varchar(20) DEFAULT NULL,
   `adresse_client` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_client`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id_client`, `nom_client`, `prenom_client`, `message_client`, `mail_client`, `telephone_client`, `adresse_client`) VALUES
-(1, 'Doe', 'John', 'Bonjour', 'john.doe@example.com', '0634567890', '123 Main '),
-(2, 'Smith', 'Jane', 'Bienvenue', 'jane.smith@example.com', '0676543210', '456 Oak '),
-(3, 'Johnson', 'Bob', 'Salut', 'bob.johnson@example.com', '0651234567', '789 Elm ');
+INSERT INTO `client` (`id_client`, `nom_prenom`, `message_client`, `mail_client`, `telephone_client`, `adresse_client`) VALUES
+(1, 'Doe', 'Bonjour', 'john.doe@example.com', '0634567890', '123 Main '),
+(2, 'Smith', 'Bienvenue', 'jane.smith@example.com', '0676543210', '456 Oak '),
+(3, 'Johnson', 'Salut', 'bob.johnson@example.com', '0651234567', '789 Elm '),
+(4, 'AUrelien', 'Message du client', 'mail@example.com', '0123456789', NULL),
+(5, 'Damien', 'Message du client', 'mail@example.com', '0123456789', NULL);
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `logement` (
   `id_logement` int NOT NULL AUTO_INCREMENT,
   `nom_logement` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_logement`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `logement`
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `prix` (
   `prix_total` decimal(8,2) DEFAULT NULL,
   PRIMARY KEY (`id_client`,`id_reservation`),
   KEY `id_reservation` (`id_reservation`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `prix_logement` (
   PRIMARY KEY (`id_prix_logement`),
   KEY `id_logement` (`id_logement`),
   KEY `id_saison` (`id_saison`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `prix_logement`
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id_logement` int NOT NULL,
   PRIMARY KEY (`id_reservation`),
   KEY `id_logement` (`id_logement`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `reservation`
@@ -159,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `saison` (
   `id_saison` int NOT NULL AUTO_INCREMENT,
   `type_saison` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_saison`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `saison`
@@ -174,3 +175,40 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- SELECT 
+--         reservation.id_reservation,
+--         reservation.date_debut,
+--         reservation.date_fin,
+--         reservation.nombre_nuit,
+--         logement.nom_logement,
+--         client.nom_prenom,
+--         client.telephone_client,
+--         client.mail_client,
+--         client.adresse_client
+--     FROM 
+--         reservation
+--     INNER JOIN
+--         client ON reservation.id_client = client.id_client
+--     INNER JOIN
+--         logement ON reservation.id_logement = logement.id_logement
+--     ORDER BY
+--         reservation.date_debut DESC
+        

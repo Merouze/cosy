@@ -1,5 +1,7 @@
 <?php
- 
+
+ require "../Les_Logements_Cosy/vendor/autoload.php";
+
  try {
     // Get environnement configuration
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -19,4 +21,5 @@
     die('Unable to connect to the database.
     ' . $e->getMessage());
 }
+
 ?>

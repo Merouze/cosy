@@ -5,7 +5,8 @@ session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
 ?>
-
+<?php
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

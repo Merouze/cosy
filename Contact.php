@@ -1,3 +1,10 @@
+<?php
+require "../Les_Logements_Cosy/vendor/autoload.php";
+include ".includes/_db.php";
+session_start();
+$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -62,93 +69,13 @@
         </section>
         <h2 class="text-center p-20 m-b70 m-t70">Un lieu unique pour <span class="text-brown">un séjour unique ...</span></h2>
         <!-- *******************************************calendrier**************************** -->
-<!-- 
-        <div class="container col-10">
-            <h4 class="mb-5">Demande de réservation ou d'informations</h4>
-            <div class="container">
-                <div class="row calendar">
-                    <div id="cld" class="col-md-10 offset-md-1 mb-5">
-                        <div id="enteteCLD">
-                            <h4 id="cldT">Janvier</h4>
-                            <div id="avantEtApres">
-                                <button id="left" class="cldBtn"><</button>
-                                <button id="right" class="cldBtn">></button>
-                            </div>
-                        </div>
-                        <div id="cldBoite">
-                            <div id="jours">
-                                <div class="jour">Lun</div>
-                                <div class="jour">Mar</div>
-                                <div class="jour">Mer</div>
-                                <div class="jour">Jeu</div>
-                                <div class="jour">Ven</div>
-                                <div class="jour">Sam</div>
-                                <div class="jour">Dim</div>
-                            </div>
-                            <div id="semaine1" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                            <div id="semaine2" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                            <div id="semaine3" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                            <div id="semaine4" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                            <div id="semaine5" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                            <div id="semaine6" class="semaine">
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                                <div class="case" data-date=""></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="calendar" id='calendar'></div>
 
 
-                <div class="text-center figure-caption mt-2 mb-5">Les périodes indisponibles à la location sont affiché
+                <!-- <div class="text-center figure-caption mt-2 mb-5">Les périodes indisponibles à la location sont affiché
                     en rouge.</div>
             </div> -->
             <!-- ***************************fomulaire********************** -->
-             <!-- ****************** Formulaire ******************** -->
         <form id="form" class="form">
             <h4 class="text-center">Demande d'informations</h4>
             <div class="flex-form">
@@ -270,6 +197,9 @@
         </footer>
     </main>
     <script src="Js/script.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+    
+    
 </body>
 
 </html>
