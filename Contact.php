@@ -76,14 +76,14 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                     en rouge.</div>
             </div> -->
             <!-- ***************************fomulaire********************** -->
-        <form id="form" class="form">
+        <form id="formulaire" method="post" action="email.php" class="form">
             <h4 class="text-center">Demande d'informations</h4>
             <div class="flex-form">
                 <div class="form">
                     <div class="select-date">
                         <div>
-                            <label for="input-choice" class="">Choix du logement :
-                                <select id="input-choice" class="housing-choice form-label"
+                            <label for="input-choice-logement" class="">Choix du logement :
+                                <select name="choix-logement" id="input-choice-logement" class="housing-choice form-label"
                                     aria-label="Default select example"></label>
                             <option selected>Choisissez votre logement</option>
                             <option value="Cosy Patio">Cosy Patio</option>
@@ -92,34 +92,34 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                             </select>
                         </div>
                         <div>
-                            <label for="dateIn">Date d'arrivée :
+                            <label for="dateIn-logement">Date d'arrivée :
                                 <input class="dateIn form-label" type="date" id="dateIn" name="trip-start" /></label>
                             <div id="dateError" style="color: red;"></div>
                         </div>
                         <div>
                             <label for="dateOut">Date de départ :
-                                <input class="dateOut form-label" type="date" id="dateOut" name="trip-start" /></label>
+                                <input class="dateOut form-label" type="date" id="dateOut" name="trip-end" /></label>
                             <div id="dateOutError" style="color: red;"></div>
                         </div>
                         <div>
-                            <label for="inputNumberNight" class="">Nombre de nuits :
-                                <input id="inputNumberNight" type="text" class="numberNight form-label"></label>
+                            <label for="inputNumberNight-logement" class="">Nombre de nuits :
+                                <input id="inputNumberNight-logement" type="text" name="inputNumberNight-logement" class="numberNight form-label"></label>
                         </div>
                     </div>
                 </div>
                 <div class="form">
                     <div class="form-name">
                         <div class="">
-                            <label for="inputName" class="">Nom, Prénom :
-                                <input id="inputName" type="text" class="name form-label"></label>
+                            <label for="inputName"  class="">Nom, Prénom :
+                                <input id="inputName" name="name-logement" type="text" class="name form-label"></label>
                         </div>
                         <div>
                             <label for="inputNumber" class="">Numéro de téléphone :
-                                <input id="inputNumber" type="tel" class="phone form-label"></label>
+                                <input name="inputNumber-logement" type="tel" class="phone form-label"></label>
                         </div>
                         <div>
-                            <label for="inputEmail" class="">Adresse email :
-                                <input id="inputEmail" type="email" class="email form-label"
+                            <label for="inputEmail-logement" class="">Adresse email :
+                                <input name="mail-logement" id="inputEmail-logement" type="email" class="email form-label"
                                     aria-describedby="emailHelp"></label>
                             <div id="emailHelp" class="form-text">Votre e-mail ne sera pas diffusé.</div>
                         </div>
@@ -128,12 +128,12 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                 <div class="form">
                     <div class="form-com">
                         <label for="commentaire">Ecrivez nous :</label>
-                        <textarea id="commentaire" class="message" placeholder="Laissez-nous votre message !"
+                        <textarea id="commentaire" name="commentaire" class="message" placeholder="Laissez-nous votre message !"
                             style="height: 100px"></textarea>
                     </div>
                     <div class="">
-                        <input type="checkbox" class="" id="check">
-                        <label class="" for="check">J'accepte de recevoir des informations concernant nos promotions et
+                        <input name="checkbox-logement" type="checkbox" class="" id="check">
+                        <label for="check">J'accepte de recevoir des informations concernant nos promotions et
                             notre actualité. Pour en savoir plus, consulter notre <a href="#">politique
                                 de confidentialité.</a></label>
                     </div>
