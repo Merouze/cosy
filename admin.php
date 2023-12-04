@@ -9,62 +9,7 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 <?php
 
 // // ****************** afficher un historique des reservation ******************
-// $historiqueReservations = [];
 
-// if (isset($_POST['recherche'])) {
-//     if (isset($_POST['chercherResa'])) {
-//         $recherche = strip_tags($_POST['chercherResa']);
-//         // Construisez la requête avec les conditions de date
-//         $displayResa = $dtcosycaen->prepare("
-//         SELECT 
-//         reservation.id_reservation,
-//             reservation.date_debut,
-
-//             reservation.date_fin,
-//             reservation.nombre_nuit,
-//             logement.nom_logement,
-//             client.nom_prenom,
-//             client.telephone_client,
-//             client.mail_client,
-//             client.adresse_client
-//         FROM 
-//         reservation
-//         INNER JOIN
-//             client ON reservation.id_client = client.id_client
-//             INNER JOIN
-//             logement ON reservation.id_logement = logement.id_logement
-//             WHERE
-//             client.nom_prenom LIKE :recherche
-//             OR reservation.date_debut <= :dateDebut
-//             OR reservation.date_fin >= :dateFin
-//             OR logement.nom_logement LIKE :recherche
-//             ORDER BY
-//             reservation.date_debut DESC
-//             ");
-
-//         // Liez le paramètre de recherche
-//         $displayResa->bindParam(':recherche', $recherche, PDO::PARAM_STR);
-
-//         // Liez les paramètres de date
-//         $displayResa->bindParam(':dateDebut', $dateDebut, PDO::PARAM_STR);
-//         $displayResa->bindParam(':dateFin', $dateFin, PDO::PARAM_STR);
-
-//         // ...
-
-//         // Exécutez la requête
-//         $displayResa->execute();
-
-//         // Récupérez les résultats
-//         $historiqueReservations = $displayResa->fetchAll(PDO::FETCH_ASSOC);
-
-//         // Affichage des résultats de la recherche
-//         if (!empty($historiqueReservations)) {
-//             $_SESSION['notif'] = 'Réservation trouvée(s)';
-//         } else {
-//             $_SESSION['error'] = 'Aucune réservation trouvée';
-//         }
-//     }
-// }
 $historiqueReservations = [];
 
 if (isset($_POST['recherche'])) {
@@ -168,11 +113,10 @@ if (isset($_POST['recherche'])) {
 
             ?>
             <div>
-                <h2 class="text-center first-h2">Vacances, Hébergements et Locations saisonnières</h2>
+                <h2 class="text-center first-h2"></h2>
             </div>
         </section>
-        <h2 class="text-center m-b70 m-t70 p-20">Un lieu unique pour <span class="text-brown">un séjour unique
-                ...</span></h2>
+        <h2 class="text-center m-b70 m-t70 p-20"></span></h2>
 
         <!-- *************************** formulaire ajout resa *******************************  -->
 
@@ -264,30 +208,32 @@ if (isset($_POST['recherche'])) {
 
 
         // <!-- Affichage des résultats -->
+// Affichage des résultats
+if (!empty($historiqueReservations)) {
+    echo '<ul>';
+    foreach ($historiqueReservations as $reservation) {
+        echo '<li>';
+        echo '<dl>';
+        echo '<dt>Client:</dt><dd>' . $reservation['nom_prenom'] . '</dd>';
+        echo '<dt>Téléphone:</dt><dd>' . $reservation['telephone_client'] . '</dd>';
+        echo '<dt>Email:</dt><dd>' . $reservation['mail_client'] . '</dd>';
+        echo '<dt>Adresse:</dt><dd>' . $reservation['adresse_client'] . '</dd>';
+        echo '<dt>Date de début:</dt><dd>' . date('d/m/Y', strtotime($reservation['date_debut'])) . '</dd>';
+        echo '<dt>Date de fin:</dt><dd>' . date('d/m/Y', strtotime($reservation['date_fin'])) . '</dd>';
+        echo '<dt>Nombre de nuits:</dt><dd>' . $reservation['nombre_nuit'] . '</dd>';
+        echo '<dt>Logement:</dt><dd>' . $reservation['nom_logement'] . '</dd>';
+        echo '</dl>';
+        echo '<a href="modifier-reservation.php?id=' . urlencode($reservation['id_reservation']) . '">Modifier</a><br>';
+        echo '<a href="#" onclick="confirmDelete(' . $reservation['id_reservation'] . ');">Supprimer</a>';
+        echo '</li>';
+    }
+    echo '</ul>';
+}
 
-
-        if (!empty($historiqueReservations)) {
-            echo '<ul>';
-            foreach ($historiqueReservations as $reservation) {
-                echo '<li>';
-                echo '<strong>Client:</strong> ' . $reservation['nom_prenom'] . '<br>';
-                echo '<strong>Téléphone:</strong> ' . $reservation['telephone_client'] . '<br>';
-                echo '<strong>Email:</strong> ' . $reservation['mail_client'] . '<br>';
-                echo '<strong>Adresse:</strong> ' . $reservation['adresse_client'] . '<br>';
-                echo '<strong>Date de début:</strong> ' . date('d/m/Y', strtotime($reservation['date_debut'])) . '<br>';
-                echo '<strong>Date de fin:</strong> ' . date('d/m/Y', strtotime($reservation['date_fin'])) . '<br>';
-                echo '<strong>Nombre de nuits:</strong> ' . $reservation['nombre_nuit'] . '<br>';
-                echo '<strong>Logement:</strong> ' . $reservation['nom_logement'] . '<br>';
-                echo '<a href="edit.php?id=' . $reservation['id_reservation'] . '">Modifier</a>' . '<br>';
-                echo '<a href="edit.php?id=' . $reservation['id_reservation'] . '">Supprimer</a>';
-
-                echo '</li>';
-            }
-            echo '</ul>';
-        }
-        var_dump($historiqueReservations);
-
+        
         ?>
+
+
 
 
 
@@ -344,6 +290,16 @@ if (isset($_POST['recherche'])) {
         }
     </script> -->
     <script src="Js/script.js"></script>
+    <script>
+function confirmDelete(reservationId) {
+    var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
+
+    if (confirmDelete) {
+        window.location.href = 'delete_reservation.php?id=' + reservationId;
+    }
+}
+</script>
+
 </body>
 
 </html>
