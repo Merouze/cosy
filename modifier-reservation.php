@@ -115,109 +115,37 @@
                     ...</span></h2>
 
             <!-- *************************** formulaire modif resa *******************************  -->
-            <!-- 
 
-            <form id="form" class="form m-t50" method="post" action="traitement_modifier_reservation.php">
-                <h4 class="text-center">Modifier une réservation</h4>
-                <div class="flex-form">
-                    <div class="form">
-                        <div class="form-name">
-                            <div>
-                                <label for="inputName">Nom, Prénom :
-                                    <input id="inputName" type="text" class="name form-label" name="new-nomPrenom">
-                                </label>
-                                <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
-                            </div>
-                            <div>
-                                <label for="inputNumber">Numéro de téléphone :
-                                    <input id="inputNumber" type="tel" class="phone form-label" name="new-telephone">
-                                </label>
-                            </div>
-                            <div>
-                                <label for="inputEmail">Adresse email :
-                                    <input id="inputEmail" type="email" class="email form-label" name="new-email" aria-describedby="emailHelp">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form">
-                        <label for="inputAddress">Adresse :</label>
-                        <textarea class="form-label" type="text" id="inputAddress" name="new-adresse" placeholder="Entrez votre adresse"></textarea>
-
-                    </div>
-                    <div class="form">
-                        <div class="select-date">
-                            <div>
-                                <label for="input-choice">Choix du logement :
-                                    <select id="input-choice" class="housing-choice form-label" name="new-idLogement" aria-label="Default select example">
-                                        <option selected disabled>Choisissez votre logement</option>
-                                        <option value="1">Cosy Patio</option>
-                                        <option value="2">Cosy Zénith</option>
-                                        <option value="3">Zénit'House</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div>
-                                <label for="dateIn">Date d'arrivée :
-                                    <input class="dateIn form-label" type="date" id="dateIn" name="new-dateDebut">
-                                </label>
-                                <div id="dateError" style="color: red;"></div>
-                            </div>
-                            <div>
-                                <label for="dateOut">Date de départ :
-                                    <input class="dateOut form-label" type="date" id="dateOut" name="new-dateFin">
-                                </label>
-                                <div id="dateOutError" style="color: red;"></div>
-                            </div>
-                            <div>
-                                <label for="inputNumberNight">Nombre de nuits :
-                                    <input id="inputNumberNight" type="text" class="numberNight form-label" name="new-numberNight">
-                                </label>
-                            </div>
-                        </div>
-                    </div> -->
-
-            <!-- Formulaire de modification -->
             <form id="formModifier" class="form m-t50" method="post" action="">
                 <h4 class="text-center">Modifier une réservation</h4>
-                <!-- Afficher les données actuelles de la réservation pour référence -->
+
+
+                <!-- Formulaire de modification -->
                 <div>
                     <label>Nom, Prénom actuel : <?php echo $clientData['nom_prenom']; ?></label>
                 </div>
-                <div>
-                    <label>Téléphone actuel : <?php echo $clientData['telephone_client']; ?></label>
-                </div>
-                <div>
-                    <label>Adresse mail actuelle : <?php echo $clientData['mail_client']; ?></label>
-                </div>
-                <div>
-                    <label>Adresse actuelle : <?php echo $clientData['adresse_client']; ?></label>
-                </div>
-                <div>
-                    <label>Date de début actuelle : <?php echo $reservationData['date_debut']; ?></label>
-                </div>
-                <div>
-                    <label>Date de fin actuelle : <?php echo $reservationData['date_fin']; ?></label>
-                </div>
-                <div>
-                    <label>Nombre de nuits actuel : <?php echo $reservationData['nombre_nuit']; ?></label>
-                </div>
-                <div>
-                    <label>Nombre de nuits actuel : <?php echo $reservationData['nombre_nuit']; ?></label>
-                </div>
-
-                <!-- Formulaire de modification -->
                 <div class="form">
                     <label for="nomPrenomModif">Nom, Prénom :</label>
                     <input id="nomPrenomModif" type="text" class="name form-label" name="nomPrenomModif" value="<?php echo $clientData['nom_prenom']; ?>" required>
+                    <input type="hidden" id="tokenField" name="token" value="<?= $_SESSION['myToken'] ?>">
+
+                </div>
+                <div>
+                    <label>Téléphone actuel : <?php echo $clientData['telephone_client']; ?></label>
                 </div>
                 <div class="form">
                     <label for="telephoneModif">Numéro de téléphone :</label>
                     <input id="telephoneModif" type="tel" class="phone form-label" name="telephoneModif" value="<?php echo $clientData['telephone_client']; ?>" required>
                 </div>
+                <div>
+                    <label>Adresse mail actuelle : <?php echo $clientData['mail_client']; ?></label>
+                </div>
                 <div class="form">
                     <label for="emailModif">Adresse email :</label>
                     <input id="emailModif" type="email" class="email form-label" name="emailModif" value="<?php echo $clientData['mail_client']; ?>" aria-describedby="emailHelp" required>
+                </div>
+                <div>
+                    <label>Adresse actuelle : <?php echo $clientData['adresse_client']; ?></label>
                 </div>
                 <div class="form">
                     <label for="adresseModif">Adresse :</label>
@@ -233,10 +161,17 @@
                 </div>
                 <div class="form">
                     <div>
+                        <label>Date de début actuelle : <?php echo $reservationData['date_debut']; ?></label>
+                    </div>
+                    <div>
                         <label for="dateIn">Date d'arrivée :
                             <input class="dateIn form-label" type="date" id="dateIn" name="dateDebutModif">
                         </label>
                         <div id="dateError" style="color: red;"></div>
+                    </div>
+
+                    <div>
+                        <label>Date de fin actuelle : <?php echo $reservationData['date_fin']; ?></label>
                     </div>
                     <div>
                         <label for="dateOut">Date de départ :
@@ -245,33 +180,20 @@
                         <div id="dateOutError" style="color: red;"></div>
                     </div>
                     <div>
+                        <label>Nombre de nuits actuel : <?php echo $reservationData['nombre_nuit']; ?></label>
+                    </div>
+                    <div>
                         <label for="inputNumberNight">Nombre de nuits :
-                            <input id="inputNumberNight" type="text" class="numberNight form-label" name="numberNightModif">
+                            <input readonly="readonly" id="inputNumberNight" type="text" class="numberNight form-label" name="numberNightModif" value="<?php echo $reservationData['nombre_nuit']; ?>">
+
                         </label>
+
                     </div>
                 </div>
-                </div>  
 
-
-                <!-- Bouton de soumission -->
                 <button name="modifierResa" type="submit" class="btn">Modifier</button>
                 <div id="validation-form" class="validation-form"></div>
             </form>
-
-
-            <?php
-
-            ?>
-
-
-            <div id="validation-form" class="validation-form"></div>
-            </form>
-            <?php
-            ?>
-
-
-
-
             <!-- ********************* footer *************************** -->
 
             <footer class="footer">

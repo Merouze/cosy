@@ -388,6 +388,7 @@ label {
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
+  margin: 5px;
 }
 .btn:hover {
   transition: 0.3s,  0.9s;

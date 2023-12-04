@@ -202,42 +202,31 @@ if (isset($_POST['recherche'])) {
                 </div>
                 <button name="recherche" type="submit" class="btn m-t50">Rechercher</button>
             </div>
-
         </form>
         <?php
-
-
-        // <!-- Affichage des résultats -->
+// <!-- Affichage des résultats -->
 // Affichage des résultats
 if (!empty($historiqueReservations)) {
-    echo '<ul>';
+    echo '<div class="flex-form form"><ul>';
     foreach ($historiqueReservations as $reservation) {
-        echo '<li>';
+        echo '<div class="flex-form form"><li>';
         echo '<dl>';
-        echo '<dt>Client:</dt><dd>' . $reservation['nom_prenom'] . '</dd>';
-        echo '<dt>Téléphone:</dt><dd>' . $reservation['telephone_client'] . '</dd>';
-        echo '<dt>Email:</dt><dd>' . $reservation['mail_client'] . '</dd>';
-        echo '<dt>Adresse:</dt><dd>' . $reservation['adresse_client'] . '</dd>';
-        echo '<dt>Date de début:</dt><dd>' . date('d/m/Y', strtotime($reservation['date_debut'])) . '</dd>';
-        echo '<dt>Date de fin:</dt><dd>' . date('d/m/Y', strtotime($reservation['date_fin'])) . '</dd>';
-        echo '<dt>Nombre de nuits:</dt><dd>' . $reservation['nombre_nuit'] . '</dd>';
-        echo '<dt>Logement:</dt><dd>' . $reservation['nom_logement'] . '</dd>';
+        echo '<dt><strong>Client:</strong></dt><dd>' . $reservation['nom_prenom'] . '</dd>';
+        echo '<dt><strong>Téléphone:</strong></dt><dd>' . $reservation['telephone_client'] . '</dd>';
+        echo '<dt><strong>Email:</strong></dt><dd>' . $reservation['mail_client'] . '</dd>';
+        echo '<dt><strong>Adresse:</strong></dt><dd>' . $reservation['adresse_client'] . '</dd>';
+        echo '<dt><strong>Date de début:</strong></dt><dd>' . date('d/m/Y', strtotime($reservation['date_debut'])) . '</dd>';
+        echo '<dt><strong>Date de fin:</strong></dt><dd>' . date('d/m/Y', strtotime($reservation['date_fin'])) . '</dd>';
+        echo '<dt><strong>Nombre de nuits:</strong></dt><dd>' . $reservation['nombre_nuit'] . '</dd>';
+        echo '<dt><strong>Logement:</strong></dt><dd>' . $reservation['nom_logement'] . '</dd>';
         echo '</dl>';
-        echo '<a href="modifier-reservation.php?id=' . urlencode($reservation['id_reservation']) . '">Modifier</a><br>';
-        echo '<a href="#" onclick="confirmDelete(' . $reservation['id_reservation'] . ');">Supprimer</a>';
-        echo '</li>';
+        echo '<a class="btn m-t50" href="modifier-reservation.php?id=' . urlencode($reservation['id_reservation']) . '">Modifier</a>';
+        echo '<a class="btn m-t50" href="#" onclick="confirmDelete(' . $reservation['id_reservation'] . ');">Supprimer</a>';
+        echo '</li></div>';
     }
-    echo '</ul>';
+    echo '</ul></div>';
 }
-
-        
-        ?>
-
-
-
-
-
-
+?>
         <!-- ********************* footer *************************** -->
 
         <footer class="footer">
@@ -291,14 +280,14 @@ if (!empty($historiqueReservations)) {
     </script> -->
     <script src="Js/script.js"></script>
     <script>
-function confirmDelete(reservationId) {
-    var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
+        function confirmDelete(reservationId) {
+            var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
 
-    if (confirmDelete) {
-        window.location.href = 'delete_reservation.php?id=' + reservationId;
-    }
-}
-</script>
+            if (confirmDelete) {
+                window.location.href = 'delete_reservation.php?id=' + reservationId;
+            }
+        }
+    </script>
 
 </body>
 
