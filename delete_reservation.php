@@ -28,20 +28,14 @@ if (isset($_GET['id'])) {
 
         // Vérifiez si la suppression a réussi
         if ($deleteResa->rowCount() && $deleteClient->rowCount()) {
-            $_SESSION['notif'] = 'Réservation et client associé supprimés avec succès';
+            $_SESSION['notif'] = 'Réservation supprimés avec succès';
         } else {
             $_SESSION['error'] = 'Impossible de supprimer la réservation et le client associé';
         }
 
         // Redirigez l'utilisateur vers la page d'origine ou une autre page après la suppression
         header('Location: admin.php');
-    } else {
-        $_SESSION['error'] = 'Client non trouvé pour la réservation';
-        header('Location: admin.php');
     }
-} else {
-    $_SESSION['error'] = 'ID de réservation manquant';
-    header('Location: admin.php');
-}
+} 
 ?>
 

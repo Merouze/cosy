@@ -4,71 +4,71 @@
     session_start();
     $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
     ?>
-    <?php
-    // Récupérer l'ID de la réservation à modifier depuis l'URL
-    $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+<?php
 
-    // Récupérer les données actuelles de la réservation depuis la base de données
-    $getClientData = $dtcosycaen->prepare("SELECT * FROM client WHERE id_client = :id");
-    $getClientData->execute(['id' => $clientId]);
-    $clientData = $getClientData->fetch(PDO::FETCH_ASSOC);
+// Récupérer l'ID de la réservation à modifier depuis l'URL
+$clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    $getData = $dtcosycaen->prepare("SELECT * FROM reservation WHERE    id_client = :id");
-    $getData->execute(['id' => $clientId]);
-    $reservationData = $getData->fetch(PDO::FETCH_ASSOC);
+// Récupérer les données actuelles de la réservation depuis la base de données
+$getClientData = $dtcosycaen->prepare("SELECT * FROM client WHERE id_client = :id");
+$getClientData->execute(['id' => $clientId]);
+$clientData = $getClientData->fetch(PDO::FETCH_ASSOC);
 
-    // Traitement du formulaire de modification lors de la soumission
-    if (isset($_POST['modifierResa'])) {
-        // Récupérer les données du formulaire
-        $nomPrenomModif = strip_tags($_POST['nomPrenomModif']);
-        $telephoneModif = strip_tags($_POST['telephoneModif']);
-        $emailModif = strip_tags($_POST['emailModif']);
-        $adresseModif = strip_tags($_POST['adresseModif']);
-        $idLogementModif = intval(strip_tags($_POST['idLogementModif']));
-        $dateDebutModif = strip_tags($_POST['dateDebutModif']);
-        $dateFinModif = strip_tags($_POST['dateFinModif']);
-        $numberNightModif = intval(strip_tags($_POST['numberNightModif']));
+$getData = $dtcosycaen->prepare("SELECT * FROM reservation WHERE    id_client = :id");
+$getData->execute(['id' => $clientId]);
+$reservationData = $getData->fetch(PDO::FETCH_ASSOC);
 
-        // Mettre à jour les informations du client associé
-        $updateClient = $dtcosycaen->prepare("UPDATE client SET
-        nom_prenom = :nomPrenom,
-        telephone_client = :telephone,
-        mail_client = :email,
-        adresse_client = :adresse
-        WHERE id_client = :idClient
-    ");
+// Traitement du formulaire de modification lors de la soumission
+if (isset($_POST['modifierResa'])) {
+    // Récupérer les données du formulaire
+    $nomPrenomModif = strip_tags($_POST['nomPrenomModif']);
+    $telephoneModif = strip_tags($_POST['telephoneModif']);
+    $emailModif = strip_tags($_POST['emailModif']);
+    $adresseModif = strip_tags($_POST['adresseModif']);
+    $idLogementModif = intval(strip_tags($_POST['idLogementModif']));
+    $dateDebutModif = strip_tags($_POST['dateDebutModif']);
+    $dateFinModif = strip_tags($_POST['dateFinModif']);
+    $numberNightModif = intval(strip_tags($_POST['numberNightModif']));
 
-        $updateClient->execute([
-            'nomPrenom' => $nomPrenomModif,
-            'telephone' => $telephoneModif,
-            'email' => $emailModif,
-            'adresse' => $adresseModif,
-            'idClient' => $clientData['id_client'],
-        ]);
-        $updateResa = $dtcosycaen->prepare("UPDATE reservation SET
-        date_debut = :debut,
-        date_fin = :fin,
-        nombre_nuit = :nombreNuit,
-        id_logement = :idLogement
-        WHERE id_client = :id
-    ");
+    // Mettre à jour les informations du client associé
+    $updateClient = $dtcosycaen->prepare("UPDATE client SET
+    nom_prenom = :nomPrenom,
+    telephone_client = :telephone,
+    mail_client = :email,
+    adresse_client = :adresse
+    WHERE id_client = :idClient
+");
 
-        $updateResa->execute([
-            'debut' => $dateDebutModif,
-            'fin' => $dateFinModif,
-            'nombreNuit' => $numberNightModif,
-            'idLogement' => $idLogementModif,
-            'id' => $clientId,
-        ]);
+    $updateClient->execute([
+        'nomPrenom' => $nomPrenomModif,
+        'telephone' => $telephoneModif,
+        'email' => $emailModif,
+        'adresse' => $adresseModif,
+        'idClient' => $clientData['id_client'],
+    ]);
+    $updateResa = $dtcosycaen->prepare("UPDATE reservation SET
+    date_debut = :debut,
+    date_fin = :fin,
+    nombre_nuit = :nombreNuit,
+    id_logement = :idLogement
+    WHERE id_client = :id
+");
+
+    $updateResa->execute([
+        'debut' => $dateDebutModif,
+        'fin' => $dateFinModif,
+        'nombreNuit' => $numberNightModif,
+        'idLogement' => $idLogementModif,
+        'id' => $clientId,
+    ]);
+    
+    // Rediriger après la mise à jour
+    header('Location: admin.php');
+    exit;
+}
+?>
 
 
-        // Rediriger après la mise à jour
-        header('Location: admin.php');
-        exit;
-    }
-
-
-    ?>
     <!DOCTYPE html>
     <html lang="fr">
 
@@ -86,10 +86,10 @@
             <header>
                 <!-- ********************** Navbar with burger menu ********************** -->
                 <nav id="navbar">
-                    <a class="navbar-brand" href="index.php">Les Logements Cosy</a>
+                    <a class="navbar-brand" href="admin.php">Admin</a>
                     <ul id="mobile-menu" class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="#form">Ajouter une réservation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#recherche">Rechercher une réservation </a></li>
+                        <li class="nav-item"><a class="nav-link" href="ajouterResa.php">Ajouter une réservation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.php">Rechercher une réservation </a></li>
 
                     </ul>
                     <div class="menu-toggle">
@@ -100,20 +100,13 @@
                 </nav>
             </header>
             <!-- *********************    Titre  ******************* -->
-            <section class="header">
-                <h1 class="text-center">
-                    <div class="slide-right">Modifier une réservation</div>
-                </h1>
-                <?php
-
-                ?>
-                <div>
-                    <h2 class="text-center first-h2">Vacances, Hébergements et Locations saisonnières</h2>
-                </div>
-            </section>
-            <h2 class="text-center m-b70 m-t70 p-20">Un lieu unique pour <span class="text-brown">un séjour unique
-                    ...</span></h2>
-
+            <h1 class="text-center">
+                <div class="slide-right">Modifier une réservation</div>
+            </h1>
+<?php
+            var_dump($reservationData);
+// var_dump($clientData['clientData']);
+?>
             <!-- *************************** formulaire modif resa *******************************  -->
 
             <form id="formModifier" class="form m-t50" method="post" action="">
@@ -154,9 +147,9 @@
                 <div class="form">
                     <label for="idLogementModif">Choix du logement :</label>
                     <select id="idLogementModif" class="housing-choice form-label" name="idLogementModif" aria-label="Default select example" required>
-                        <option value="1" <?php echo ($reservationData['id_logement'] == 1) ? 'selected' : ''; ?>>Cosy Patio</option>
+                        <option value="1" <?php echo ($reservationData['id_logement'] == 1) ? 'selected' : ''; ?>>Zénit'House</option>
                         <option value="2" <?php echo ($reservationData['id_logement'] == 2) ? 'selected' : ''; ?>>Cosy Zénith</option>
-                        <option value="3" <?php echo ($reservationData['id_logement'] == 3) ? 'selected' : ''; ?>>Zénit'House</option>
+                        <option value="3" <?php echo ($reservationData['id_logement'] == 3) ? 'selected' : ''; ?>>Cosy Gare</option>
                     </select>
                 </div>
                 <div class="form">
@@ -197,33 +190,7 @@
             <!-- ********************* footer *************************** -->
 
             <footer class="footer">
-                <section class="footer">
-                    <div class="center-footer column-reverse">
-                        <div class="p-l5">
-                            <h3>Contact</h3>
-                            <p>
-                                +33688011150
-                                <br>
-                                cosycaen@gmail.com
-                                <br>
-                                CaenlaMer, 14, France
-                            </p>
-                        </div>
-                        <div class="p-l5">
-                            <h3>
-                                Les logements Cosy
-                            </h3>
-                            <p>
-                                Un lieu unique pour un séjour unique.
-                                <br>
-                                Les logements Cosy,
-                                <br>
-                                Vacances, Hébergements, Gites, Locations saisonnières.
-                            </p>
-                        </div>
-                    </div>
-                    </div>
-                </section>
+
                 <!-- Copyright -->
                 <div class="bottom-footer">
                     <div class="p-l5">

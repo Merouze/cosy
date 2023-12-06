@@ -117,127 +117,37 @@ dateOut.addEventListener('change', function () {
 });
 
 
-// ************************************* Json for valid date *****************************
-
-// // Fonction pour charger le fichier JSON des dates invalides
-// async function loadInvalidDates(fileName) {
-//   try {
-//     // Charge le fichier JSON correspondant et attend la réponse
-//     const response = await fetch(fileName);
-//     // Analyse la réponse en JSON et récupère les dates invalides
-//     const data = await response.json();
-//     return data.dates;
-//   } catch (error) {
-//     console.error('Erreur de chargement du fichier JSON :', error);
-//     return [];
-//   }
-// }
-
-// // Fonction pour vérifier si les dates sont invalides
-// function isDateInvalid(selectedStartDate, selectedEndDate, invalidDates) {
-//   let isInvalid = false;
-//   const startDate = new Date(selectedStartDate);
-//   const endDate = new Date(selectedEndDate);
-
-//   let currentDate = new Date(startDate);
-//   while (currentDate <= endDate) {
-//     const formattedDate = currentDate.toISOString().split('T')[0];
-//     if (invalidDates.includes(formattedDate)) {
-//       isInvalid = true;
-//       break;
-//     }
-//     currentDate.setDate(currentDate.getDate() + 1);
-//   }
-
-//   return isInvalid;
-// }
-
-// // Fonction pour mettre à jour le message d'erreur
-// function updateErrorMessage(isInvalid) {
-//   const errorMessage = document.getElementById('dateInNoDispo');
-//   if (isInvalid) {
-//     errorMessage.textContent = 'Le logement n\'est pas disponible pour cette période.';
-//   } else {
-//     errorMessage.textContent = '';
-//   }
-// }
-
-// // Écouteurs d'événements pour les champs de date et de choix du logement
-// const dateInField = document.getElementById('dateIn');
-// const dateOutField = document.getElementById('dateOut');
-// const choiceField = document.getElementById('input-choice');
-
-// async function handleDateChange() {
-//   const selectedDateIn = dateInField.value;
-//   const selectedDateOut = dateOutField.value;
-//   const selectedChoice = choiceField.value;
-
-//   // Définissez ici le nom du fichier JSON correspondant au logement
-//   let jsonFileName = '';
-
-//   switch (selectedChoice) {
-//     case 'Cosy Patio':
-//       jsonFileName = 'dates_invalides_CosyPatio.json';
-//       break;
-//     case 'Cosy Zénith':
-//       jsonFileName = 'dates_invalides_CosyZénith.json';
-//       break;
-//     case 'Zénit\'House':
-//       jsonFileName = "dates_invalides_Zénit'House.json";
-//       break;
-//     default:
-//       jsonFileName = ''; // Le choix par défaut ou une option non reconnue
-//   }
-
-//   if (jsonFileName) {
-//     // Charge les dates invalides depuis le fichier JSON approprié
-//     const invalidDates = await loadInvalidDates(jsonFileName);
-//     // Vérifie si les dates sont invalides
-//     const isInvalid = isDateInvalid(selectedDateIn, selectedDateOut, invalidDates);
-//     // Met à jour le message d'erreur en fonction du résultat
-//     updateErrorMessage(isInvalid);
-//   } else {
-//     // Réinitialise le message d'erreur si l'option change
-//     updateErrorMessage(false);
-//   }
-// }
-
-// // Ajoute des écouteurs d'événements pour les champs de date et de choix du logement
-// dateInField.addEventListener('change', handleDateChange);
-// dateOutField.addEventListener('change', handleDateChange);
-// choiceField.addEventListener('change', handleDateChange);
-
 // *********************************calendar **************************************
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  let calendarEl = document.getElementById('calendar');
-  let calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    events: [
+// document.addEventListener('DOMContentLoaded', function() {
+//   let calendarEl = document.getElementById('calendar');
+//   let calendar = new FullCalendar.Calendar(calendarEl, {
+//     initialView: 'dayGridMonth',
+//     events: [
       
-      {
-        title: 'Logement 1',
-        start: '2023-12-01',
-        end: '2023-12-10',
-        color: 'green',
-      },
-      {
-        title: 'Logement 2',
-        start: '2023-12-01',
-        end: '2023-12-10',
-        color: 'blue',
-      },
-      {
-        title: 'Logement 3',
-        start: '2023-12-01',
-        end: '2023-12-10',
-        color: 'red',
-      }
-    ],
-  });
-  calendar.render();
-});
+//       {
+//         title: 'Logement 1',
+//         start: '2023-12-01',
+//         end: '2023-12-10',
+//         color: 'green',
+//       },
+//       {
+//         title: 'Logement 2',
+//         start: '2023-12-01',
+//         end: '2023-12-10',
+//         color: 'blue',
+//       },
+//       {
+//         title: 'Logement 3',
+//         start: '2023-12-01',
+//         end: '2023-12-10',
+//         color: 'red',
+//       }
+//     ],
+//   });
+//   calendar.render();
+// });
 
 
 // ***********************************************************************Validation formulaire

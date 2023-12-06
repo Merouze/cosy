@@ -1,10 +1,65 @@
+
 <?php
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+?>
+<?php
+// Étape 1 : Récupération des données depuis la base de données
+// Préparez la requête
+$sql = "SELECT date_debut, date_fin, logement.id_logement, logement.nom_logement AS logement_nom FROM reservation
+        INNER JOIN logement ON reservation.id_logement = logement.id_logement";
+
+$statement = $dtcosycaen->prepare($sql);
+
+// Exécutez la requête
+$statement->execute();
+
+// Récupérez les résultats
+$reservations = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+// Étape 2 : Formatage des données
+$events = array();
+
+foreach ($reservations as $row) {
+    $currentDate = new DateTime($row['date_debut']);
+    $endDate = new DateTime($row['date_fin']);
+
+    while ($currentDate <= $endDate) {
+    $color = '';
+    switch ($row['id_logement']) {
+        case 1:
+            $color = 'green';
+            break;
+        case 2:
+            $color = 'blue';
+            break;
+
+        case 3:
+            $color = 'red';
+            break;
+        default:
+            $color = 'gray'; // Couleur par défaut
+    }
+
+    $event = array(
+        'title' => $row['logement_nom'],
+        // 'start' => $row['date_debut'],
+        // 'end' => $row['date_fin'],
+        'start' => $currentDate->format('Y-m-d'),
+
+        'color' => $color,
+    );
+
+    $events[] = $event;
+    $currentDate->modify('+1 day');
+
+}
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -71,10 +126,6 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
         <!-- *******************************************calendrier**************************** -->
         <div class="calendar" id='calendar'></div>
 
-
-                <!-- <div class="text-center figure-caption mt-2 mb-5">Les périodes indisponibles à la location sont affiché
-                    en rouge.</div>
-            </div> -->
             <!-- ***************************fomulaire********************** -->
         <form id="formulaire" method="post" action="email.php" class="form">
             <h4 class="text-center">Demande d'informations</h4>
@@ -196,9 +247,21 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
             </div>
         </footer>
     </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: <?php echo json_encode($events); ?>,
+            // ... d'autres options de configuration du calendrier ...
+        });
+
+        calendar.render();
+    });
+</script>
     <script src="Js/script.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
-    
     
 </body>
 

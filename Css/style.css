@@ -3,7 +3,17 @@ body {
   background: #333;
 }
 .alert-success{
-  color: #4CAF50;
+  color: white;
+  font-size: 1.2rem;
+
+  background: #4CAF50;
+}
+/* Styles pour les messages d'erreur */
+.error-message {
+  color: white;
+  font-size: 1.2rem;
+  background: red;
+
 }
 main{
   background: white;
@@ -373,13 +383,6 @@ label {
   margin-bottom: 10px;
   font-size: 16px;
 }
-
-/* Styles pour les messages d'erreur */
-.error-message {
-  color: red;
-  margin-top: 5px;
-}
-
 .btn {
   background: #4AA6BD;
   color: #fff;
