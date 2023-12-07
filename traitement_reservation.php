@@ -1,7 +1,6 @@
 <?php
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
-include_once 'functions.php';
 
 session_start();
 

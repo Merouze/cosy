@@ -2,10 +2,23 @@
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
 
+// Définir le temps d'expiration de la session en secondes (par exemple, 30 minutes)
+$session_lifetime = 1800; // 30 minutes
+ini_set('session.gc_maxlifetime', $session_lifetime);
+
 session_start();
+$_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
 
 if (isset($_GET['id'])) {
     $reservationId = $_GET['id'];
+    // var_dump($reservationId);
+    // exit;
 
     // Récupérez l'ID du client associé à la réservation
     $getClientId = $dtcosycaen->prepare("SELECT id_client FROM reservation WHERE id_reservation = :id");
@@ -33,9 +46,7 @@ if (isset($_GET['id'])) {
             $_SESSION['error'] = 'Impossible de supprimer la réservation et le client associé';
         }
 
-        // Redirigez l'utilisateur vers la page d'origine ou une autre page après la suppression
         header('Location: admin.php');
+        exit;
     }
-} 
-?>
-
+}

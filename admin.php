@@ -1,13 +1,20 @@
 <?php
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
+// Définir le temps d'expiration de la session en secondes (par exemple, 30 minutes)
+$session_lifetime = 1800; // 30 minutes
+ini_set('session.gc_maxlifetime', $session_lifetime);
+
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
 
-
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
 ?>
 <?php
-
 // // ****************** afficher un historique des reservation ******************
 
 $historiqueReservations = [];
@@ -97,6 +104,7 @@ if (isset($_POST['recherche'])) {
                 <a class="navbar-brand" href="admin.php">Admin</a>
                 <ul id="mobile-menu" class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="ajouterResa.php">Ajouter une réservation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php">Deconnexion</a></li>
 
                 </ul>
                 <div class="menu-toggle">
@@ -160,7 +168,8 @@ if (isset($_POST['recherche'])) {
                 echo '<dt><strong>Logement:</strong></dt><dd>' . $reservation['nom_logement'] . '</dd>';
                 echo '</dl>';
                 echo '<a class="btn m-t50" href="modifier-reservation.php?id=' . urlencode($reservation['id_client']) . '">Modifier</a>';
-                echo '<a class="btn m-t50" href="#" onclick="confirmDelete(' . $reservation['id_client'] . ');">Supprimer</a>';
+                echo '<a class="btn m-t50" href="delete_reservation.php?id=' . urlencode($reservation['id_client']) . '" onclick="confirmDelete(' . $reservation['id_client'] . ');">Supprimer</a>';
+
                 echo '</li></div>';
             }
             echo '</ul></div>';
@@ -195,16 +204,18 @@ if (isset($_POST['recherche'])) {
 
 
     </main>
-    <script src="Js/script.js"></script>
     <script>
-        function confirmDelete(reservationId) {
-            var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
+    function confirmDelete(reservationId) {
+        var confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
 
-            if (confirmDelete) {
-                window.location.href = 'delete_reservation.php?id=' + reservationId;
-            }
+        if (confirmDelete) {
+            window.location.replace('delete_reservation.php?id=' + reservationId);
         }
-    </script>
+    }
+</script>
+
+    <script src="Js/script.js"></script>
+    
 
 </body>
 

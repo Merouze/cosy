@@ -1,11 +1,18 @@
 <?php
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
-include_once 'functions.php';
+// Définir le temps d'expiration de la session en secondes (par exemple, 30 minutes)
+$session_lifetime = 1800; // 30 minutes
+ini_set('session.gc_maxlifetime', $session_lifetime);
 
 session_start();
-
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
 ?>
 
 
@@ -29,6 +36,8 @@ $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
                 <a class="navbar-brand" href="admin.php">Admin</a>
                 <ul id="mobile-menu" class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="admin.php">Rechercher une réservation </a></li>
+                    <li class="nav-item"><a class="nav-link" href="logout.php">Deconnexion</a></li>
+
 
                 </ul>
                 <div class="menu-toggle">
