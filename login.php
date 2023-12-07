@@ -3,6 +3,10 @@ require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
 session_start();
 $_SESSION['myToken'] = md5(uniqid(mt_rand(), true));
+// Afficher la notification si présente
+if (isset($_GET['notif'])) {
+    echo '<span class="alert-success">' . htmlspecialchars($_GET['notif']) . '</span>';
+}
 ?>
 
 <!DOCTYPE html>

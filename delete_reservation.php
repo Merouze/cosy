@@ -1,4 +1,7 @@
 <?php
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+
 require "../Les_Logements_Cosy/vendor/autoload.php";
 include ".includes/_db.php";
 
@@ -14,39 +17,39 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
-
 if (isset($_GET['id'])) {
-    $reservationId = $_GET['id'];
-    // var_dump($reservationId);
-    // exit;
+    $clientId = $_GET['id'];
 
-    // Récupérez l'ID du client associé à la réservation
-    $getClientId = $dtcosycaen->prepare("SELECT id_client FROM reservation WHERE id_reservation = :id");
-    $getClientId->bindParam(':id', $reservationId, PDO::PARAM_INT);
-    $getClientId->execute();
-    $clientRow = $getClientId->fetch(PDO::FETCH_ASSOC);
+    // Sélectionner les informations de la réservation basée sur l'ID du client
+    $selectResa = $dtcosycaen->prepare("SELECT * FROM reservation WHERE id_client = :id");
+    $selectResa->bindParam(':id', $clientId, PDO::PARAM_INT);
+    $selectResa->execute();
+    $reservationData = $selectResa->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($clientRow) {
-        $clientId = $clientRow['id_client'];
+    // Sélectionner les informations du client
+    $selectClient = $dtcosycaen->prepare("SELECT * FROM client WHERE id_client = :id");
+    $selectClient->bindParam(':id', $clientId, PDO::PARAM_INT);
+    $selectClient->execute();
+    $clientData = $selectClient->fetch(PDO::FETCH_ASSOC);
 
-        // Supprimez d'abord la réservation
-        $deleteResa = $dtcosycaen->prepare("DELETE FROM reservation WHERE id_reservation = :id");
-        $deleteResa->bindParam(':id', $reservationId, PDO::PARAM_INT);
-        $deleteResa->execute();
+    // Supprimer la réservation basée sur l'ID du client
+    $deleteResa = $dtcosycaen->prepare("DELETE FROM reservation WHERE id_client = :id");
+    $deleteResa->bindParam(':id', $clientId, PDO::PARAM_INT);
+    $deleteResa->execute();
 
-        // Ensuite, supprimez le client
-        $deleteClient = $dtcosycaen->prepare("DELETE FROM client WHERE id_client = :id");
-        $deleteClient->bindParam(':id', $clientId, PDO::PARAM_INT);
-        $deleteClient->execute();
+    // Supprimer le client associé
+    $deleteClient = $dtcosycaen->prepare("DELETE FROM client WHERE id_client = :id");
+    $deleteClient->bindParam(':id', $clientId, PDO::PARAM_INT);
+    $deleteClient->execute();
 
-        // Vérifiez si la suppression a réussi
-        if ($deleteResa->rowCount() && $deleteClient->rowCount()) {
-            $_SESSION['notif'] = 'Réservation supprimés avec succès';
-        } else {
-            $_SESSION['error'] = 'Impossible de supprimer la réservation et le client associé';
-        }
-
-        header('Location: admin.php');
-        exit;
+    // Vérifier si la suppression a réussi
+    if ($deleteResa->rowCount() && $deleteClient->rowCount()) {
+        $_SESSION['notif'] = 'Réservation et client associé supprimés avec succès';
+    } else {
+        $_SESSION['error'] = 'Impossible de supprimer la réservation et le client associé';
     }
+    header('Location: admin.php');
+    exit;
 }
+
+

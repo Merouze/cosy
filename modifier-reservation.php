@@ -42,12 +42,12 @@
 
         // Mettre à jour les informations du client associé
         $updateClient = $dtcosycaen->prepare("UPDATE client SET
-nom_prenom = :nomPrenom,
-telephone_client = :telephone,
-mail_client = :email,
-adresse_client = :adresse
-WHERE id_client = :idClient
-");
+            nom_prenom = :nomPrenom,
+            telephone_client = :telephone,
+            mail_client = :email,
+            adresse_client = :adresse
+            WHERE id_client = :idClient
+        ");
 
         $updateClient->execute([
             'nomPrenom' => $nomPrenomModif,
@@ -57,12 +57,12 @@ WHERE id_client = :idClient
             'idClient' => $clientData['id_client'],
         ]);
         $updateResa = $dtcosycaen->prepare("UPDATE reservation SET
-date_debut = :debut,
-date_fin = :fin,
-nombre_nuit = :nombreNuit,
-id_logement = :idLogement
-WHERE id_client = :id
-");
+            date_debut = :debut,
+            date_fin = :fin,
+            nombre_nuit = :nombreNuit,
+            id_logement = :idLogement
+            WHERE id_client = :id
+        ");
 
         $updateResa->execute([
             'debut' => $dateDebutModif,
