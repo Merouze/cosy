@@ -45,9 +45,8 @@ if (isset($_GET['id'])) {
     // Vérifier si la suppression a réussi
     if ($deleteResa->rowCount() && $deleteClient->rowCount()) {
         $_SESSION['notif'] = 'Réservation et client associé supprimés avec succès';
-    } else {
-        $_SESSION['error'] = 'Impossible de supprimer la réservation et le client associé';
     }
+
     header('Location: admin.php');
     exit;
 }

@@ -13,6 +13,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
+
 ?>
 <?php
 // // ****************** afficher un historique des reservation ******************
